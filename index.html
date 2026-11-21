@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marketing Esportivo</title>
+  <meta name="description" content="Apresentação acadêmica de Marketing Esportivo em scrollytelling.">
+  <link rel="icon" href="data:,">
+  <!-- =========================================================
+       CARREGAMENTO DE IMAGENS — recuperação automática
+       Se uma imagem não for encontrada em assets/img/, tenta outros
+       locais comuns (pasta achatada, pasta img/ ou mesma pasta).
+       Se nenhuma funcionar, mostra um aviso com o caminho esperado.
+       Não altera o design quando tudo está no lugar.
+       ========================================================= -->
+  <script>
+  (function () {
+    var ALT = ['assets/img/', './assets/img/', 'assets/', 'img/', ''];
+    var failed = [];
+    function fileName(src) { return decodeURIComponent((src || '').split('?')[0].split('/').pop()); }
+    function refresh() {
+      if (window.ScrollTrigger) { clearTimeout(refresh.t); refresh.t = setTimeout(function () { ScrollTrigger.refresh(); }, 200); }
+    }
+    function report() {
+      if (document.getElementById('img-alert')) { document.getElementById('img-alert-n').textContent = failed.length; return; }
+      var bar = document.createElement('div');
+      bar.id = 'img-alert';
+      bar.setAttribute('role', 'alert');
+      bar.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:999;background:#fff;color:#111;border:1px solid #E5E5E5;border-left:3px solid #00C8F8;padding:14px 18px;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.08)';
+      bar.innerHTML = '<strong><span id="img-alert-n">' + failed.length + '</span> imagem(ns) não encontrada(s).</strong> ' +
+        'A pasta <code>assets</code> precisa estar <b>ao lado</b> do <code>index.html</code>, com as imagens em <code>assets/img/</code>. ' +
+        'Exemplo procurado: <code>' + new URL('assets/img/' + failed[0], location.href).href + '</code> ' +
+        '<button type="button" style="margin-left:8px;font:inherit;border:0;background:none;color:#6E6E73;cursor:pointer" onclick="this.parentNode.remove()">fechar</button>';
+      (document.body || document.documentElement).appendChild(bar);
+      console.error('[imagens] Não encontradas:', failed);
+    }
+    document.addEventListener('error', function (e) {
+      var img = e.target;
+      if (!img || img.tagName !== 'IMG') return;
+      var name = img.dataset.file || fileName(img.getAttribute('src'));
+      img.dataset.file = name;
+      var i = parseInt(img.dataset.try || '0', 10) + 1;
+      if (i < ALT.length) { img.dataset.try = i; img.src = ALT[i] + name; return; }
+      if (failed.indexOf(name) < 0) failed.push(name);
+      if (document.body) report(); else document.addEventListener('DOMContentLoaded', report);
+    }, true);
+    document.addEventListener('load', function (e) {
+      if (e.target && e.target.tagName === 'IMG' && e.target.dataset.try) refresh();
+    }, true);
+  })();
+  </script>
+  <link rel="preload" as="image" href="assets/img/p23-hyrox-corrida.webp">
+  <style>
+/* ===== tokens.css ===== */
+/* =========================================================
+   TOKENS — cores, tipografia e espaçamentos do sistema
+   Ajuste aqui para alterar a identidade global.
+   ========================================================= */
+:root {
+  /* Paleta (briefing) */
+  --white: #FFFFFF;
+  --ink: #111111;
+  --black: #000000;
+  --gray: #6E6E73;
+  --line: #E5E5E5;
+  --cyan: #00C8F8;
+
+  /* Tipografia */
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --fs-hero: clamp(64px, 9vw, 140px);
+  --fs-act: clamp(64px, 10vw, 168px);
+  --fs-section: clamp(42px, 5.5vw, 88px);
+  --fs-sub: clamp(24px, 3vw, 42px);
+  --fs-lead: clamp(21px, 1.75vw, 28px);
+  --fs-body: clamp(17px, 1.3vw, 21px);
+  --fs-small: clamp(13px, 0.95vw, 15px);
+  --fs-cite: clamp(12px, 0.9vw, 14px);
+
+  /* Grid editorial */
+  --margin: clamp(20px, 6vw, 112px);
+  --gutter: clamp(16px, 2vw, 32px);
+  --measure: 62ch;
+  --topbar: 56px;
+
+  /* Ritmo vertical */
+  --space-1: clamp(16px, 2vw, 24px);
+  --space-2: clamp(32px, 4vw, 56px);
+  --space-3: clamp(64px, 9vw, 140px);
+  --space-4: clamp(96px, 14vw, 220px);
+
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+
+/* ===== base.css ===== */
+/* =========================================================
+   BASE — reset, tipografia, grid e componentes reutilizáveis
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+@supports (overflow: clip) { body { overflow-x: clip; } }
+img { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; }
+cite { font-style: normal; color: var(--gray); font-size: .78em; white-space: nowrap; }
+mark { background: none; color: inherit; box-shadow: inset 0 -.12em 0 var(--cyan); }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--ink); color: #fff; padding: 8px 14px; }
+.skip:focus { left: 8px; }
+
+/* Grid editorial de 12 colunas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+}
+
+/* Tipografia */
+.eyebrow {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gray);
+  display: flex; align-items: center; gap: 12px;
+}
+.eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--cyan); }
+.section-title {
+  font-size: var(--fs-section);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+}
+.section-title--sm { font-size: clamp(36px, 4.4vw, 72px); }
+.subtitle { font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.lead { font-size: var(--fs-lead); line-height: 1.42; font-weight: 500; letter-spacing: -.012em; max-width: 34ch; }
+.body { font-size: var(--fs-body); line-height: 1.6; max-width: var(--measure); color: #2a2a2c; }
+.body + .body { margin-top: 1em; }
+.accent { color: var(--cyan); }
+.hl { color: var(--ink); font-weight: 700; box-shadow: inset 0 -.14em 0 var(--cyan); }
+.cite-block { font-size: var(--fs-cite); color: var(--gray); letter-spacing: .01em; margin-top: 18px; }
+.cite-block::before { content: "Fonte · "; font-weight: 600; }
+.list li { position: relative; padding-left: 22px; font-size: var(--fs-body); line-height: 1.55; color: #2a2a2c; }
+.list li + li { margin-top: .55em; }
+.list li::before { content: ""; position: absolute; left: 0; top: .72em; width: 10px; height: 1px; background: var(--ink); }
+
+/* Máscara de texto (para revelações tipográficas) */
+.mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.mask > span { display: inline-block; will-change: transform; }
+
+/* Linhas quebradas por JS (data-split) */
+.split-line { display: block; overflow: hidden; padding-bottom: .06em; }
+.split-line > span { display: inline-block; }
+
+/* Rótulos de abertura de ato (Insert 09) */
+.opener__label {
+  font-size: var(--fs-small); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan);
+}
+.opener__title {
+  font-size: var(--fs-act); font-weight: 800; line-height: .92; letter-spacing: -.05em; text-align: center;
+}
+
+/* Tags de case */
+.tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--fs-cite); font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+}
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+.tag--win::before { background: var(--cyan); }
+.tag--loss::before { background: transparent; border: 1.5px solid var(--ink); }
+
+/* Modo reduzido / sem JS: tudo visível */
+.no-motion [data-reveal], .no-motion .split-line > span { opacity: 1 !important; transform: none !important; }
+main { overflow-x: clip; }
+.no-motion .hero__hint { display: none; }
+
+/* ===== nav.css ===== */
+/* =========================================================
+   NAVEGAÇÃO — progresso, barra superior, índice, voltar ao topo
+   ========================================================= */
+.progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; pointer-events: none; }
+.progress__bar { display: block; height: 100%; background: var(--cyan); transform-origin: 0 50%; transform: scaleX(0); }
+
+.topbar {
+  position: fixed; inset: 0 0 auto 0; height: var(--topbar); z-index: 50;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding-inline: var(--margin);
+  background: rgba(255, 255, 255, .82);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .4s var(--ease), transform .5s var(--ease);
+  font-size: 13px;
+}
+.topbar.is-scrolled { border-bottom-color: var(--line); }
+.topbar__brand { font-weight: 700; text-decoration: none; letter-spacing: -.01em; justify-self: start; }
+.topbar__act { display: flex; gap: 10px; align-items: baseline; color: var(--gray); min-height: 1em; }
+.topbar__act-num { color: var(--cyan); font-weight: 700; letter-spacing: .06em; }
+.topbar__act-name { color: var(--ink); font-weight: 500; }
+.topbar__menu {
+  justify-self: end; font: inherit; font-weight: 600; background: none; border: 0; cursor: pointer;
+  padding: 8px 0; color: var(--ink); display: inline-flex; gap: 8px; align-items: center;
+}
+.topbar__menu::after { content: ""; width: 14px; height: 6px; border-block: 1.5px solid currentColor; transition: transform .3s var(--ease); }
+.topbar__menu[aria-expanded="true"]::after { transform: scaleY(0.2); }
+
+.index {
+  position: fixed; top: var(--topbar); right: var(--margin); z-index: 55;
+  width: min(420px, calc(100vw - 2 * var(--margin)));
+  max-height: calc(100vh - var(--topbar) - 24px); overflow: auto;
+  background: rgba(255, 255, 255, .96);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  padding: 22px 26px;
+  font-size: 15px;
+}
+.index[hidden] { display: none; }
+.index__acts > li + li { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+.index__acts > li > a { font-weight: 700; text-decoration: none; display: flex; gap: 14px; font-size: 17px; }
+.index__acts > li > a span { color: var(--cyan); width: 22px; }
+.index__acts ol { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 8px 0 0 36px; }
+.index__acts ol a { color: var(--gray); text-decoration: none; font-size: 14px; }
+.index a:hover { color: var(--ink); }
+.index__keys { margin-top: 18px; font-size: 12px; color: var(--gray); }
+kbd { font: inherit; font-size: 11px; border: 1px solid var(--line); padding: 1px 6px; color: var(--ink); }
+
+.totop {
+  position: fixed; right: var(--margin); bottom: 24px; z-index: 50;
+  width: 40px; height: 40px; display: grid; place-items: center;
+  border: 1px solid var(--line); background: rgba(255,255,255,.9); text-decoration: none; font-size: 15px;
+  opacity: 0; transform: translateY(10px); pointer-events: none;
+  transition: opacity .4s var(--ease), transform .4s var(--ease);
+}
+.totop.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.totop:hover { border-color: var(--ink); }
+
+/* ===== act1.css ===== */
+/* =========================================================
+   ABERTURA + ATO I — Entendendo o jogo
+   ========================================================= */
+
+/* ---------- CENA 01 · HERO ---------- */
+.hero { position: relative; }
+.hero__stage {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: calc(var(--topbar) + 24px) var(--margin) 48px;
+  position: relative;
+}
+.hero__title {
+  font-size: var(--fs-hero); font-weight: 800; line-height: .9; letter-spacing: -.055em;
+  text-align: center; position: relative; z-index: 2; will-change: transform;
+}
+.hero__line { display: block; }
+.hero__media { width: min(56vw, 760px); aspect-ratio: 16 / 10; overflow: hidden; position: relative; }
+.hero__media img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.hero__acts { display: flex; gap: clamp(20px, 4vw, 64px); font-size: var(--fs-small); color: var(--gray); }
+.hero__acts span { display: block; color: var(--cyan); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: 11px; }
+.hero__acts li { font-weight: 600; color: var(--ink); }
+.hero__hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--gray); letter-spacing: .06em; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.hero__hint span { width: 1px; height: 36px; background: linear-gradient(var(--ink) 0 50%, var(--line) 50%); background-size: 1px 72px; animation: hint 1.8s var(--ease) infinite; }
+@keyframes hint { from { background-position: 0 -36px; } to { background-position: 0 36px; } }
+
+/* ---------- ABERTURAS DE ATO ---------- */
+.opener__stage {
+  min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 28px; padding: var(--space-3) var(--margin);
+}
+.opener__rule { width: min(360px, 40vw); height: 2px; background: var(--cyan); transform-origin: 0 50%; }
+
+/* ---------- CENA 02 · O QUE É ---------- */
+.what { padding-block: var(--space-3); }
+.what__grid { row-gap: var(--space-2); align-items: start; }
+.what__title { grid-column: 1 / span 6; font-size: var(--fs-section); font-weight: 800; letter-spacing: -.04em; line-height: 1.0; position: sticky; top: calc(var(--topbar) + 40px); }
+.what__body { grid-column: 8 / span 5; padding-top: 12px; }
+.what__body .lead { max-width: none; }
+.what__body .body { margin-top: 1.4em; }
+.what__fields { margin-top: var(--space-2); border-top: 1px solid var(--line); }
+.what__fields li { border-bottom: 1px solid var(--line); padding: 14px 0; font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; line-height: 1.15; display: flex; justify-content: space-between; align-items: baseline; }
+.what__fields li::after { content: counter(f, decimal-leading-zero); counter-increment: f; font-size: 12px; color: var(--cyan); font-weight: 700; letter-spacing: .06em; }
+.what__fields { counter-reset: f; }
+
+/* ---------- CENA 02b · POR QUE É IMPORTANTE ---------- */
+.why__stage {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+  padding: var(--space-3) var(--margin); gap: var(--space-2);
+}
+.why__words { display: flex; flex-wrap: wrap; gap: .1em .42em; font-size: clamp(36px, 4.6vw, 80px); font-weight: 800; letter-spacing: -.045em; line-height: 1.02; max-width: 15em; }
+.why__words li.is-muted { color: #c7c7cc; }
+.why__words li.is-accent { color: var(--cyan); }
+.why__text { max-width: 70ch; }
+
+/* ---------- CENA 03 · PERÍODO ---------- */
+.period__stage { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px; padding: var(--space-3) var(--margin); text-align: center; }
+.period__years { display: flex; align-items: center; gap: clamp(10px, 3vw, 48px); font-size: clamp(44px, 12vw, 200px); font-weight: 800; letter-spacing: -.06em; line-height: 1; font-variant-numeric: tabular-nums; }
+.period__line { width: clamp(60px, 16vw, 280px); height: 3px; background: var(--cyan); transform-origin: 0 50%; }
+.period__caption { color: var(--gray); font-size: var(--fs-body); }
+
+/* ---------- CENA 03 · GRÁFICOS ---------- */
+.charts { position: relative; }
+.charts__track { display: flex; flex-direction: column; }
+.chart {
+  display: grid; grid-template-columns: minmax(0, 3.2fr) minmax(0, 8.8fr); gap: var(--gutter) calc(var(--gutter) * 2);
+  align-items: center; padding: var(--space-2) var(--margin);
+}
+.chart__idx { font-size: 12px; font-weight: 700; color: var(--cyan); letter-spacing: .1em; }
+.chart__title { font-size: clamp(34px, 3.8vw, 64px); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; margin-top: 14px; }
+.chart__note { color: var(--gray); margin-top: 16px; font-size: var(--fs-body); max-width: 30ch; }
+.chart__steps { margin-top: 24px; border-top: 1px solid var(--line); }
+.chart__steps li { border-bottom: 1px solid var(--line); padding: 10px 0; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink); transition: color .3s; display: flex; gap: 10px; align-items: center; }
+.chart__steps li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background .3s; }
+.chart__steps li.is-on::before { background: var(--cyan); }
+.chart__fig { width: 100%; }
+.chart__img { position: relative; max-height: 76vh; margin-inline: auto; }
+.chart__img img { width: 100%; height: auto; max-height: 76vh; object-fit: contain; }
+/* Quadrantes do mapa temático (sobre a área do gráfico original) */
+.q { position: absolute; background: rgba(255,255,255,.9); pointer-events: none; opacity: 0; }
+.q--tl { left: 10.6%; top: 11.4%; width: 39.6%; height: 32.3%; }
+.q--tr { left: 50.2%; top: 11.4%; width: 39.6%; height: 32.3%; }
+.q--bl { left: 10.6%; top: 43.7%; width: 39.6%; height: 32.5%; }
+.q--br { left: 50.2%; top: 43.7%; width: 39.6%; height: 32.5%; }
+
+/* Modo horizontal (ativado por JS no desktop) */
+.charts.is-h .charts__viewport { height: 100vh; overflow: hidden; }
+.charts.is-h .charts__track { flex-direction: row; width: max-content; height: 100%; will-change: transform; }
+.charts.is-h .chart { width: 100vw; height: 100vh; padding-top: calc(var(--topbar) + 32px); }
+
+/* ---------- CENA 04 · COMO FUNCIONA ---------- */
+.how__stage { min-height: 100vh; padding: var(--space-3) var(--margin); display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--gutter); align-content: center; }
+.how__title { grid-column: 1 / span 5; font-size: clamp(40px, 4.6vw, 76px); font-weight: 800; letter-spacing: -.04em; line-height: 1.0; align-self: start; }
+.how__panels { grid-column: 7 / span 6; position: relative; display: grid; gap: var(--space-2); }
+.how__mix { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 32px; font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; }
+.how__mix span { display: inline-block; }
+.how__mix span:not(:last-child)::after { content: "+"; color: var(--gray); font-weight: 400; margin-left: 18px; }
+.how__mix .is-accent { color: var(--ink); box-shadow: inset 0 -.16em 0 var(--cyan); }
+.how__intro { margin-bottom: 24px; }
+.how__forms li { display: grid; grid-template-columns: 72px 1fr; gap: 12px; padding: 20px 0; border-top: 1px solid var(--line); align-items: baseline; }
+.how__n { font-size: 15px; font-weight: 700; color: var(--cyan); letter-spacing: .06em; }
+.how__t { font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; line-height: 1.15; }
+.how__t em { font-style: normal; color: var(--gray); font-weight: 500; }
+
+/* Empilhado (ativado por JS no desktop) */
+.how.is-stacked .how__panels { display: block; min-height: 60vh; }
+.how.is-stacked .how__panel { position: absolute; inset: 0 0 auto 0; }
+.how.is-stacked .how__forms { position: relative; min-height: 220px; }
+.how.is-stacked .how__forms li { position: absolute; inset: 0 0 auto 0; grid-template-columns: 1fr; border: 0; padding: 0; }
+.how.is-stacked .how__forms .how__n { font-size: clamp(96px, 11vw, 180px); line-height: .9; letter-spacing: -.06em; color: var(--ink); }
+.how.is-stacked .how__forms .how__t { font-size: clamp(28px, 2.8vw, 46px); max-width: 18ch; }
+.how__dots { display: none; }
+.how.is-stacked .how__dots { display: flex; gap: 8px; margin-top: 16px; position: absolute; bottom: -40px; left: 0; }
+.how__dots i { width: 28px; height: 2px; background: var(--line); }
+.how__dots i.is-on { background: var(--cyan); }
+
+/* Estado "vivo" do hero (desktop com animação) */
+@media (min-width: 900px) {
+  .hero.is-live .hero__stage { height: 100vh; padding: 0; display: block; }
+  .hero.is-live .hero__title { position: absolute; left: 50%; top: 50%; width: max-content; }
+  .hero.is-live .hero__media { position: absolute; left: 50%; top: 56%; width: 52vw; aspect-ratio: 16 / 9; }
+  .hero.is-live .hero__acts { position: absolute; left: 0; right: 0; bottom: 7vh; justify-content: center; }
+}
+
+/* ===== act2.css ===== */
+/* =========================================================
+   ATO II — Vitórias e derrotas
+   ========================================================= */
+
+/* ---------- CENA 05 · ABERTURA DOS CASES ---------- */
+.cases-open__stage {
+  position: relative; min-height: 100vh; overflow: hidden;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gutter);
+  padding: var(--space-3) var(--margin); align-content: center;
+}
+.cases-open__head { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 24px; margin-bottom: var(--space-2); position: relative; z-index: 3; }
+.cases-open__tile, .cases-open__nike { overflow: hidden; background: #f2f2f2; }
+.cases-open__tile img, .cases-open__nike img { width: 100%; height: 100%; object-fit: cover; }
+.cases-open__tile { aspect-ratio: 16 / 9; }
+.cases-open__nike { aspect-ratio: 1800 / 1013; }
+
+/* Composição editorial absoluta (desktop) */
+@media (min-width: 900px) {
+  .cases-open__stage { display: block; height: 100vh; padding: 0; }
+  .cases-open__head { position: absolute; inset: 0; justify-content: center; margin: 0; pointer-events: none; }
+  .cases-open__tile, .cases-open__nike { position: absolute; }
+  .t-reebok  { left: 7vw;  top: 15vh; width: 19vw; aspect-ratio: 640 / 294; }
+  .t-redbull { left: 10vw; top: 64vh; width: 22vw; }
+  .t-adidas  { left: 70vw; top: 66vh; width: 19vw; aspect-ratio: 1145 / 688; }
+  .cases-open__nike { left: 67vw; top: 13vh; width: 25vw; z-index: 4; }
+  /* Estado "vivo": a peça Nike ocupa a tela via transform (JS) */
+  .cases-open.is-live .cases-open__nike {
+    left: 50%; top: 50%; width: max(100vw, 177.7vh); height: max(56.28vw, 100vh); aspect-ratio: auto;
+    transform-origin: 50% 50%;
+  }
+}
+
+/* ---------- CASES · estrutura comum ---------- */
+.case { padding-bottom: var(--space-3); }
+.case__kicker { display: flex; align-items: center; gap: 14px; font-size: var(--fs-cite); color: var(--gray); font-weight: 600; letter-spacing: .08em; }
+.case__title { font-size: var(--fs-section); font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-top: 14px; }
+.case__body { row-gap: var(--space-2); padding-top: var(--space-3); }
+.case__body > *:nth-child(odd) { grid-column: 1 / span 5; }
+.case__body > *:nth-child(even) { grid-column: 7 / span 6; }
+.case__h { font-size: var(--fs-small); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; color: var(--ink); }
+.case__lesson { border-top: 2px solid var(--ink); padding-top: 22px; }
+.case__lesson .case__h { color: var(--cyan); }
+.case__lesson--wide { grid-column: 1 / -1 !important; }
+.lesson { font-size: clamp(24px, 2.3vw, 38px); font-weight: 700; letter-spacing: -.025em; line-height: 1.2; max-width: 30ch; }
+.case__lesson--wide .lesson { max-width: 36ch; }
+.case__source { font-size: var(--fs-cite); color: var(--gray); margin-top: var(--space-2); display: block; }
+
+/* ---------- CENA 06 · NIKE ---------- */
+.nike__intro { position: relative; padding: calc(var(--topbar) + var(--space-2)) var(--margin) 0; }
+.nike__frame { overflow: hidden; background: #000; }
+.nike__frame img { width: 100%; height: 100%; object-fit: cover; }
+.nike__caption { margin-top: var(--space-2); }
+@media (min-width: 900px) {
+  .nike__intro.is-live { height: 100vh; padding: 0; overflow: hidden; }
+  .nike__intro.is-live .nike__frame { position: absolute; left: 50%; top: 50%; width: max(100vw, 177.7vh); height: max(56.28vw, 100vh); }
+  .nike__intro.is-live .nike__caption { position: absolute; left: var(--margin); right: var(--margin); bottom: 7vh; margin: 0; display: flex; justify-content: space-between; align-items: end; }
+}
+
+.stat { padding: var(--space-3) var(--margin) 0; display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 0 var(--gutter); border-top: 0; }
+.stat > .case__h { grid-column: 1 / -1; }
+.stat__num { grid-column: 1 / span 7; font-size: clamp(120px, 20vw, 340px); font-weight: 800; letter-spacing: -.07em; line-height: .82; font-variant-numeric: tabular-nums; display: flex; align-items: flex-start; }
+.stat__plus { font-size: .4em; color: var(--cyan); margin-top: .12em; margin-right: .04em; }
+.stat__unit { font-size: .5em; margin-top: .06em; }
+.stat__label { grid-column: 8 / span 5; align-self: end; font-size: var(--fs-lead); line-height: 1.35; font-weight: 600; letter-spacing: -.015em; }
+.stat__list { grid-column: 8 / span 5; margin-top: 24px; }
+.stat__list li { padding: 12px 0; border-top: 1px solid var(--line); color: #2a2a2c; }
+.stat .cite-block { grid-column: 8 / span 5; }
+
+/* ---------- CENA 07 · RED BULL ---------- */
+.rb__scene { position: relative; padding: calc(var(--topbar) + var(--space-2)) var(--margin) 0; }
+.rb__frame { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: #02040a; }
+.rb__frame img { width: 100%; height: 100%; object-fit: cover; }
+.rb__alt { position: absolute; left: 4%; top: 6%; color: #fff; display: flex; flex-direction: column; gap: 8px; text-shadow: 0 2px 30px rgba(0,0,0,.4); }
+.rb__alt-num { font-size: clamp(56px, 9vw, 160px); font-weight: 800; letter-spacing: -.06em; line-height: .85; }
+.rb__alt-num small { font-size: .35em; letter-spacing: -.02em; margin-left: .1em; }
+.rb__alt-label { font-size: var(--fs-small); letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+.rb__caption { margin-top: var(--space-2); }
+@media (min-width: 900px) {
+  .rb__scene.is-live { height: 100vh; padding: 0; }
+  .rb__scene.is-live .rb__frame { position: absolute; inset: 0; aspect-ratio: auto; }
+  .rb__scene.is-live .rb__caption { position: absolute; left: var(--margin); bottom: 6vh; margin: 0; }
+}
+.rb__stats { padding-top: var(--space-3); row-gap: 28px; }
+.rb__stats-h { grid-column: 1 / -1; }
+.rb__stat { grid-column: span 4; border-top: 1px solid var(--line); padding-top: 22px; }
+.rb__num { font-size: clamp(56px, 7vw, 120px); font-weight: 800; letter-spacing: -.055em; line-height: .9; font-variant-numeric: tabular-nums; }
+.rb__num small { font-size: .32em; letter-spacing: -.01em; color: var(--gray); font-weight: 600; }
+.rb__label { margin-top: 16px; color: #2a2a2c; max-width: 28ch; }
+.rb__stats-src { grid-column: 1 / -1; margin-top: 0; }
+
+/* ---------- DIVISOR · vitórias → derrotas ---------- */
+.turn { padding: var(--space-4) var(--margin) var(--space-3); display: flex; flex-direction: column; gap: 28px; }
+.turn__text { font-size: var(--fs-act); font-weight: 800; letter-spacing: -.055em; line-height: .92; }
+.turn__a { color: #c7c7cc; display: block; }
+.turn__b { display: block; }
+.turn__rule { height: 1px; background: var(--ink); transform-origin: 0 50%; }
+
+/* ---------- CENA 08 · ADIDAS ---------- */
+.ad__scene { padding: var(--space-2) var(--margin) 0; display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--space-2) var(--gutter); align-items: center; }
+.ad__head { grid-column: 1 / -1; }
+.ad__email { grid-column: 1 / span 6; border: 1px solid var(--line); }
+.ad__quote { grid-column: 7 / span 6; }
+.ad__phrase { font-size: clamp(34px, 3.6vw, 64px); font-weight: 800; letter-spacing: -.04em; line-height: 1.04; }
+.ad__word { position: relative; display: inline-block; }
+.ad__under { position: absolute; left: 0; right: 0; bottom: .02em; height: .09em; background: var(--ink); transform-origin: 0 50%; }
+.ad__translation { margin-top: 22px; color: var(--gray); font-size: var(--fs-lead); }
+@media (min-width: 900px) {
+  .ad__scene.is-live { height: 100vh; padding-top: calc(var(--topbar) + 24px); padding-bottom: 32px; align-content: center; }
+}
+.split { padding-top: var(--space-3); align-items: center; row-gap: var(--space-2); }
+.split__media { grid-column: 1 / span 6; }
+.split > .case__block { grid-column: 8 / span 5; }
+
+/* ---------- CENA 09 · REEBOK ---------- */
+.rk__head { padding-top: var(--space-3); }
+.rk__head > * { grid-column: 1 / -1; }
+.rk__scene { padding: var(--space-2) var(--margin) 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+.rk__ad { width: min(100%, 820px); }
+.rk__slogan { text-align: center; }
+.rk__en { font-size: clamp(34px, 4.4vw, 76px); font-weight: 800; letter-spacing: -.045em; line-height: 1.02; }
+.rk__l { display: block; }
+.rk__pt { margin-top: 18px; color: var(--gray); font-size: var(--fs-lead); }
+
+/* ---------- CENA 10 · ANÁLISE ---------- */
+.compare__stage { min-height: 100vh; padding: calc(var(--topbar) + var(--space-2)) var(--margin) var(--space-2); display: flex; flex-direction: column; justify-content: center; gap: var(--space-2); }
+.compare__title { font-size: var(--fs-section); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.compare__sub { color: var(--gray); font-size: var(--fs-lead); margin-top: 12px; }
+.compare__cols { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 clamp(24px, 4vw, 72px); }
+.compare__divider { background: var(--cyan); transform-origin: 50% 0; }
+.compare__colh { font-size: var(--fs-small); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); }
+.dot--hollow { background: transparent; border: 1.5px solid var(--ink); }
+.compare__row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.compare__row dt { font-size: clamp(20px, 1.8vw, 30px); font-weight: 800; letter-spacing: -.025em; line-height: 1.08; }
+.compare__row dt img { width: 100%; max-width: 160px; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 12px; }
+.compare__row dd { font-size: var(--fs-small); line-height: 1.4; color: #2a2a2c; }
+.compare__row dd span { display: block; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); margin-bottom: 6px; }
+.compare__col--win .compare__row dd:last-child { color: var(--ink); font-weight: 600; }
+
+.verdict { padding: var(--space-3) 0 var(--space-4); }
+.verdict__grid { row-gap: var(--space-2); }
+.verdict__big { grid-column: 1 / span 10; font-size: clamp(34px, 4.2vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1.04; }
+.verdict__text { grid-column: 6 / span 7; display: grid; gap: 1.1em; }
+.verdict__text .body + .body { margin-top: 0; }
+.verdict__pull { grid-column: 1 / -1; margin-top: var(--space-2); border-top: 1px solid var(--line); padding-top: var(--space-2); font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; }
+.verdict__pull::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); margin-right: 16px; vertical-align: .12em; }
+.cases-open__slot, .cases-open__caption { display: none; }
+@media (min-width: 900px) {
+  .cases-open__slot { display: block; position: absolute; left: 67vw; top: 13vh; width: 25vw; aspect-ratio: 1800 / 1013; visibility: hidden; }
+  .ad__scene { position: relative; }
+  .cases-open.is-live .cases-open__caption { display: flex; position: absolute; left: var(--margin); right: var(--margin); bottom: 7vh; justify-content: space-between; align-items: end; z-index: 5; }
+  .cases-open.is-live .cases-open__caption .case__title { margin: 0; }
+  /* No desktop, a abertura do case Nike acontece dentro da cena anterior */
+  .nike__intro.is-merged { display: none; }
+  .case--nike .nike__intro.is-merged + .case__body { padding-top: var(--space-2); }
+}
+
+/* ===== act3.css ===== */
+/* =========================================================
+   ATO III — Nossa vez de jogar + Conclusão + Referências
+   ========================================================= */
+
+/* ---------- CENA 11 · TRANSIÇÃO ---------- */
+.our__stage { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3) var(--margin); overflow: hidden; }
+.our__mosaic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: min(100%, 900px); order: 2; }
+.our__tile { aspect-ratio: 4 / 3; overflow: hidden; background: #f2f2f2; }
+.our__tile img { width: 100%; height: 100%; object-fit: cover; }
+.our__head { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+@media (min-width: 900px) {
+  .our__stage { height: 100vh; padding: 0; }
+  .our__mosaic { position: absolute; left: 50%; top: 50%; width: 64vw; transform: translate(-50%, -50%); grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .our__tile { aspect-ratio: 16 / 9; }
+  .our__head { position: relative; z-index: 2; }
+}
+
+/* ---------- CENA 12 · GOLDKO ---------- */
+.goldko { padding: var(--space-3) 0; }
+.goldko__head { row-gap: 16px; }
+.goldko__head > * { grid-column: 1 / -1; }
+.goldko__head .section-title { font-size: clamp(64px, 11vw, 190px); letter-spacing: -.06em; line-height: .9; }
+.goldko__collage { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); padding: var(--space-2) var(--margin); }
+.gk { overflow: hidden; }
+.gk img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+@media (min-width: 900px) {
+  .goldko__collage { position: relative; display: block; height: max(100vh, 64vw); padding: 0; margin-top: var(--space-2); }
+  .gk { position: absolute; }
+  .gk--a { left: var(--margin); top: 0; width: 31vw; aspect-ratio: 577 / 737; }
+  .gk--b { left: 41vw; top: 20vw; width: 23vw; aspect-ratio: 663 / 883; z-index: 2; }
+  .gk--c { right: var(--margin); top: 6vw; width: 26vw; aspect-ratio: 663 / 883; }
+}
+.goldko__story { padding-top: var(--space-3); row-gap: var(--space-2); }
+.goldko__story .subtitle { grid-column: 1 / span 4; }
+.timeline { grid-column: 5 / span 8; }
+.timeline li { display: grid; grid-template-columns: minmax(90px, 1.2fr) 5fr; gap: var(--gutter); padding: 22px 0; border-top: 1px solid var(--line); align-items: baseline; }
+.timeline__y { font-size: clamp(32px, 3.2vw, 56px); font-weight: 800; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+.timeline li:first-child .timeline__y, .timeline li:last-child .timeline__y { color: var(--cyan); }
+.goldko__sells { padding-top: var(--space-3); row-gap: 24px; }
+.goldko__sells .subtitle { grid-column: 1 / span 4; }
+.goldko__sells .lead { grid-column: 5 / span 7; max-width: none; font-size: clamp(24px, 2.4vw, 40px); font-weight: 600; letter-spacing: -.025em; line-height: 1.22; }
+
+/* ---------- CENA 13 · HYROX ---------- */
+.hyrox { padding-bottom: var(--space-3); }
+.hyrox__scene { position: relative; padding: var(--space-3) var(--margin) 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); overflow: hidden; }
+.hyrox__head { grid-column: 1 / -1; display: grid; gap: 16px; margin-bottom: var(--space-1); }
+.hyrox__word { display: none; }
+.hx { overflow: hidden; }
+.hx img { width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 900px) {
+  .hyrox__scene { display: block; height: 100vh; padding: 0; }
+  .hyrox__head { position: absolute; left: var(--margin); top: calc(var(--topbar) + 5vh); z-index: 3; margin: 0; }
+  .hyrox__word { display: block; position: absolute; left: 0; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 34vw; font-weight: 800; letter-spacing: -.06em; line-height: 1; color: #F3F3F5; z-index: 0; user-select: none; }
+  .hx { position: absolute; z-index: 1; }
+  .hx--a { left: 8vw;  top: 31vh; width: 19vw; aspect-ratio: 589 / 884; }
+  .hx--b { left: 36vw; top: 22vh; width: 22vw; aspect-ratio: 663 / 883; }
+  .hx--c { left: 64vw; top: 34vh; width: 28vw; aspect-ratio: 600 / 565; }
+}
+.hyrox__text { padding-top: var(--space-3); row-gap: var(--space-2); }
+.hyrox__text .subtitle { grid-column: 1 / span 4; }
+.hyrox__cols { grid-column: 5 / span 8; display: grid; grid-template-columns: 1fr 1fr; gap: var(--gutter) calc(var(--gutter) * 2); }
+
+/* ---------- CENA 14 · CAMPANHA ---------- */
+.camp__stage { position: relative; min-height: 100vh; display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--gutter); padding: var(--space-3) var(--margin); align-items: center; }
+.camp__text { grid-column: 1 / span 6; position: relative; z-index: 2; }
+.camp__title { font-size: clamp(56px, 7.6vw, 132px); font-weight: 800; letter-spacing: -.055em; line-height: .92; margin-top: 22px; }
+.camp__title .mask { display: block; }
+.camp__with { color: var(--gray); font-size: .52em; letter-spacing: -.04em; margin-top: .1em; }
+.camp__sub { margin-top: 24px; font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; }
+.camp__sub::before { content: ""; display: inline-block; width: 36px; height: 3px; background: var(--cyan); vertical-align: middle; margin-right: 14px; }
+.camp__more { margin-top: var(--space-2); display: grid; gap: 1em; max-width: 54ch; }
+.camp__more .body + .body { margin-top: 0; }
+.camp__goal { border-top: 2px solid var(--ink); padding-top: 16px; font-size: var(--fs-lead); font-weight: 600; letter-spacing: -.015em; line-height: 1.32; }
+.camp__goal span { display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+.camp__note { margin-top: 24px; font-size: var(--fs-cite); color: var(--gray); }
+.camp__media { grid-column: 8 / span 5; justify-self: center; }
+.camp__media { overflow: hidden; }
+.camp__media img { max-height: 84vh; width: auto; }
+.camp__21 { display: none; }
+@media (min-width: 900px) {
+  .camp.is-live .camp__stage { height: 100vh; padding-block: calc(var(--topbar) + 16px) 24px; }
+  .camp.is-live .camp__more { position: absolute; left: 0; right: 0; top: 100%; margin-top: 0; }
+  .camp.is-live .camp__text { align-self: center; }
+  .camp__21 { display: block; position: absolute; right: calc(var(--margin) + 33vw); bottom: 8vh; font-size: clamp(110px, 13vw, 230px); font-weight: 800; letter-spacing: -.07em; line-height: .8; color: var(--ink); opacity: 0; z-index: 1; pointer-events: none; }
+  .camp__21 small { font-size: .16em; letter-spacing: .02em; color: var(--cyan); margin-left: .3em; text-transform: uppercase; }
+}
+
+/* ---------- CENA 15 · APP ---------- */
+.app__stage { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: var(--space-2); padding: var(--space-3) var(--margin); overflow: hidden; }
+.app__row { position: relative; display: flex; align-items: center; justify-content: center; gap: clamp(10px, 1.6vw, 28px); }
+.app__ph img { width: auto; height: min(40vh, 20vw); object-fit: contain; }
+.app__ph--main img { height: min(54vh, 27vw); }
+.app__ph--ios img { height: min(42vh, 21vw); }
+.app__ph { will-change: transform; flex: none; }
+
+/* ---------- CENA 16 · KIT ---------- */
+.kit__stage { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: var(--space-2); padding: var(--space-3) var(--margin); overflow: hidden; }
+.kit__head { display: grid; gap: 16px; }
+.kit__q { font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; color: var(--gray); }
+.kit__row { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: clamp(16px, 3vw, 56px); }
+.kit__item { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: none; will-change: transform; }
+.kit__item img { width: auto; object-fit: contain; }
+.kit__item--socks img  { height: min(38vh, 22vw); }
+.kit__item--top img    { height: min(28vh, 18vw); }
+.kit__item--tee img    { height: min(28vh, 18vw); }
+.kit__item--bottle img { height: min(38vh, 22vw); }
+.kit__item figcaption { font-size: var(--fs-cite); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); }
+
+/* ---------- CENA 17 · AZUL ---------- */
+.blue { padding: var(--space-3) 0; }
+.blue__head { row-gap: 16px; }
+.blue__head > * { grid-column: 1 / -1; }
+.blue__grid { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--gutter); padding: var(--space-2) var(--margin) 0; align-items: start; }
+.bl { overflow: hidden; }
+.bl img { width: 100%; height: auto; will-change: transform; }
+.bl--a { grid-column: 1 / span 4; }
+.bl--b { grid-column: 5 / span 5; margin-top: 18vh; }
+.bl--c { grid-column: 10 / span 3; margin-top: 6vh; }
+.blue__line { position: absolute; left: var(--margin); right: var(--margin); top: 52%; height: 2px; background: var(--cyan); transform-origin: 0 50%; z-index: -1; }
+
+/* ---------- CENA 18 · NO EVENTO ---------- */
+.event__stage { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: var(--space-2); padding: var(--space-3) var(--margin); overflow: hidden; }
+.event__head { display: grid; gap: 14px; grid-template-columns: 1fr; position: relative; z-index: 3; }
+.event__quote { font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.event__grid { position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(8px, 1vw, 16px); align-items: start; }
+.ev { aspect-ratio: 2 / 3; overflow: hidden; will-change: transform; background: #111; }
+.ev img { width: 100%; height: 100%; object-fit: cover; }
+.ev:nth-child(even) { margin-top: 9vh; }
+@media (min-width: 900px) {
+  .event.is-live .event__stage { height: 100vh; padding-block: calc(var(--topbar) + 20px) 32px; }
+  .event__head { grid-template-columns: auto 1fr; align-items: end; column-gap: var(--space-2); }
+  .event__head .eyebrow { grid-column: 1 / -1; }
+  .event__quote { justify-self: end; }
+  .ev { max-height: 52vh; }
+}
+
+/* ---------- CENA 19 · CONCLUSÃO ---------- */
+.conclusion { padding: var(--space-4) 0 var(--space-3); }
+.conclusion__grid { row-gap: var(--space-2); align-items: start; }
+.conclusion__title { grid-column: 1 / span 4; position: sticky; top: calc(var(--topbar) + 40px); }
+.conclusion__text { grid-column: 6 / span 7; display: grid; gap: 1.3em; }
+.conclusion__text .lead { max-width: none; font-size: clamp(22px, 2vw, 32px); line-height: 1.34; }
+.conclusion__text .body + .body { margin-top: 0; }
+.learned { display: grid; gap: 0; margin-top: 8px; }
+.learned > div { display: grid; grid-template-columns: minmax(120px, 1fr) 3fr; gap: var(--gutter); border-top: 1px solid var(--line); padding: 20px 0; }
+.learned dt { font-weight: 800; letter-spacing: -.02em; font-size: var(--fs-lead); }
+.learned dd { font-size: var(--fs-lead); line-height: 1.35; font-weight: 500; letter-spacing: -.012em; }
+
+/* ---------- CENA 20 · REFERÊNCIAS ---------- */
+.refs { padding: var(--space-3) 0 0; border-top: 1px solid var(--line); }
+.refs__grid { row-gap: var(--space-2); }
+.refs__title { grid-column: 1 / span 4; font-size: var(--fs-sub); font-weight: 700; letter-spacing: -.02em; }
+.refs__list { grid-column: 5 / span 8; display: grid; gap: 18px; }
+.ref { font-size: var(--fs-small); line-height: 1.55; color: #2a2a2c; padding-bottom: 18px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.ref a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.ref a:hover { border-bottom-color: var(--cyan); }
+.refs__also { font-size: var(--fs-cite); color: var(--gray); line-height: 1.6; }
+.end { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) var(--margin) 40px; font-size: var(--fs-cite); color: var(--gray); }
+.end__top { font-size: var(--fs-body); font-weight: 600; color: var(--ink); text-decoration: none; }
+.end__top:hover { color: var(--cyan); }
+
+/* ===== responsive.css ===== */
+/* =========================================================
+   RESPONSIVIDADE — tablets e celulares (as cenas fixas são
+   desativadas abaixo de 900px; o conteúdo flui normalmente)
+   ========================================================= */
+@media (max-width: 899px) {
+  .topbar { grid-template-columns: 1fr auto; }
+  .topbar__act { display: none; }
+
+  .what__title, .what__body,
+  .how__title, .how__panels,
+  .case__body > *:nth-child(odd), .case__body > *:nth-child(even),
+  .split__media, .split > .case__block,
+  .verdict__big, .verdict__text,
+  .goldko__story .subtitle, .timeline, .goldko__sells .subtitle, .goldko__sells .lead,
+  .hyrox__text .subtitle, .hyrox__cols,
+  .camp__text, .camp__media,
+  .conclusion__title, .conclusion__text,
+  .refs__title, .refs__list,
+  .ad__email, .ad__quote,
+  .stat__num, .stat__label, .stat__list, .stat .cite-block { grid-column: 1 / -1; }
+
+  .what__title, .conclusion__title { position: static; }
+  .hero__media { width: 100%; }
+  .hero__acts { flex-direction: column; gap: 10px; text-align: center; }
+  .chart { grid-template-columns: 1fr; }
+  .rb__stat { grid-column: 1 / -1; }
+  .hyrox__cols { grid-template-columns: 1fr; }
+  .compare__cols { grid-template-columns: 1fr; gap: var(--space-2); }
+  .compare__divider { height: 1px; }
+  .compare__row { grid-template-columns: 1fr 1fr; }
+  .compare__row dt { grid-column: 1 / -1; }
+  .app__row, .kit__row { flex-wrap: wrap; }
+  .app__ph img, .app__ph--main img, .app__ph--ios img { height: 42vh; }
+  .kit__item--socks img, .kit__item--bottle img { height: 30vh; }
+  .kit__item--top img, .kit__item--tee img { height: 22vh; }
+  .blue__grid { grid-template-columns: 1fr 1fr; }
+  .bl--a, .bl--b, .bl--c { grid-column: auto; margin-top: 0; }
+  .bl--b { grid-column: 1 / -1; order: -1; }
+  .event__grid { grid-template-columns: repeat(2, 1fr); }
+  .ev:nth-child(even) { margin-top: 0; }
+  .end { flex-direction: column; gap: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__hint span { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+  </style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ============ NAVEGAÇÃO ============ -->
+<div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+<header class="topbar" role="banner">
+  <a class="topbar__brand" href="#inicio" data-nav>Marketing Esportivo</a>
+  <p class="topbar__act" aria-live="polite"><span class="topbar__act-num"></span><span class="topbar__act-name"></span></p>
+  <button class="topbar__menu" type="button" aria-expanded="false" aria-controls="indice">Índice</button>
+</header>
+<nav class="index" id="indice" aria-label="Índice da apresentação" hidden>
+  <ol class="index__acts">
+    <li><a href="#ato-1" data-nav><span>I</span>Entendendo o jogo</a>
+      <ol><li><a href="#o-que-e" data-nav>O que é</a></li><li><a href="#pesquisas" data-nav>Evolução das pesquisas</a></li><li><a href="#como-funciona" data-nav>Como funciona</a></li></ol></li>
+    <li><a href="#ato-2" data-nav><span>II</span>Vitórias e derrotas</a>
+      <ol><li><a href="#nike" data-nav>Nike</a></li><li><a href="#redbull" data-nav>Red Bull</a></li><li><a href="#adidas" data-nav>Adidas</a></li><li><a href="#reebok" data-nav>Reebok</a></li><li><a href="#analise" data-nav>Análise</a></li></ol></li>
+    <li><a href="#ato-3" data-nav><span>III</span>Nossa vez de jogar</a>
+      <ol><li><a href="#goldko" data-nav>GoldKo</a></li><li><a href="#hyrox" data-nav>HYROX</a></li><li><a href="#campanha" data-nav>Campanha</a></li><li><a href="#app" data-nav>App</a></li><li><a href="#kit" data-nav>Kit</a></li><li><a href="#evento" data-nav>No evento</a></li><li><a href="#conclusao" data-nav>Conclusão</a></li></ol></li>
+    <li><a href="#referencias" data-nav><span>—</span>Referências</a></li>
+  </ol>
+  <p class="index__keys">Atalhos: <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> atos · <kbd>R</kbd> referências · <kbd>Home</kbd> início</p>
+</nav>
+<a class="totop" href="#inicio" data-nav aria-label="Voltar ao início">↑</a>
+
+<main id="conteudo">
+
+<!-- ============ CENA 01 · ABERTURA (PDF p.1) ============ -->
+<section class="hero" id="inicio" data-scene="hero" aria-label="Abertura">
+  <div class="hero__stage">
+    <h1 class="hero__title"><span class="hero__line">Marketing</span> <span class="hero__line">Esportivo</span></h1>
+    <figure class="hero__media">
+      <img src="assets/img/p23-hyrox-corrida.webp" width="600" height="565" alt="Atletas em movimento em uma competição HYROX" fetchpriority="high">
+    </figure>
+    <ol class="hero__acts" aria-label="Estrutura">
+      <li><span>Ato I</span>Entendendo o jogo</li>
+      <li><span>Ato II</span>Vitórias e derrotas</li>
+      <li><span>Ato III</span>Nossa vez de jogar</li>
+    </ol>
+    <p class="hero__hint" aria-hidden="true"><span></span>Role para começar</p>
+  </div>
+</section>
+
+<!-- =================================================================
+     ATO I — ENTENDENDO O JOGO (PDF p.2–8)
+     ================================================================= -->
+<div class="act" data-act="I" data-act-name="Entendendo o jogo">
+
+<section class="opener" id="ato-1" data-scene="opener" aria-label="Ato I">
+  <div class="opener__stage">
+    <p class="opener__label">Ato I</p>
+    <h2 class="opener__title"><span class="mask"><span>Entendendo</span></span> <span class="mask"><span>o jogo</span></span></h2>
+    <span class="opener__rule" aria-hidden="true"></span>
+  </div>
+</section>
+
+<!-- CENA 02 · O QUE É (PDF p.2) -->
+<section class="what" id="o-que-e" aria-labelledby="what-title">
+  <div class="grid what__grid">
+    <h2 class="what__title" id="what-title" data-split>O que é o marketing esportivo?</h2>
+    <div class="what__body">
+      <p class="lead" data-reveal>É um ramo do marketing voltado à promoção de eventos e equipes esportivas, bem como de produtos e serviços relacionados ao esporte <cite>(Shekhar; Shah, 2023, p. 1, tradução nossa)</cite>.</p>
+      <p class="body" data-reveal>Começou como uma ferramenta para aumentar vendas e se tornou um campo amplo, que envolve branding, responsabilidade social, qualidade dos serviços e engajamento dos torcedores <cite>(Shekhar; Shah, 2023)</cite>.</p>
+      <ul class="what__fields" aria-label="Campos citados">
+        <li data-reveal>Branding</li>
+        <li data-reveal>Responsabilidade social</li>
+        <li data-reveal>Qualidade dos serviços</li>
+        <li data-reveal>Engajamento dos torcedores</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 02b · POR QUE É IMPORTANTE (PDF p.3) -->
+<section class="why" id="importancia" data-scene="why" aria-labelledby="why-title">
+  <div class="why__stage">
+    <p class="eyebrow">Por que ele é importante</p>
+    <ul class="why__words" aria-label="Palavras-chave do texto">
+      <li>receita</li><li class="is-muted">ingressos</li><li class="is-muted">produtos</li><li class="is-muted">cobertura televisiva</li>
+      <li class="is-accent">paixão</li><li>engajamento</li><li>consumo do torcedor</li>
+      <li class="is-muted">redes sociais</li><li class="is-muted">novas tecnologias</li>
+    </ul>
+    <p class="why__text body" id="why-title">Porque está ligado a atividades que geram receita, como venda de ingressos, produtos e cobertura televisiva, e porque se baseia na paixão, no engajamento e no consumo do torcedor <cite>(Shekhar; Shah, 2023)</cite>. Além disso, continua crescendo com as redes sociais e as novas tecnologias adotadas pelo setor esportivo <cite>(Yang et al., 2009 apud Shekhar; Shah, 2023)</cite>.</p>
+  </div>
+</section>
+
+<!-- CENA 03 · EVOLUÇÃO DAS PESQUISAS (PDF p.4–7) -->
+<section class="period" id="pesquisas" data-scene="period" aria-label="Período da pesquisa">
+  <div class="period__stage">
+    <p class="eyebrow">Evolução das pesquisas</p>
+    <p class="period__years"><span class="period__y period__y--a">2001</span><span class="period__line" aria-hidden="true"></span><span class="period__y period__y--b">2021</span></p>
+    <p class="period__caption">Dados da análise bibliométrica de Shekhar e Shah (2023).</p>
+  </div>
+</section>
+
+<section class="charts" data-scene="charts" aria-label="Gráficos da análise bibliométrica">
+  <div class="charts__viewport">
+    <div class="charts__track">
+
+      <article class="chart" data-chart="growth">
+        <header class="chart__head">
+          <p class="chart__idx">01 / 04</p>
+          <h3 class="chart__title">Crescimento das fontes</h3>
+          <p class="chart__note">Ocorrências acumuladas por periódico, 2001–2021.</p>
+          <p class="cite-block">Figura 4 — Shekhar; Shah (2023)</p>
+        </header>
+        <figure class="chart__fig"><div class="chart__img">
+          <img src="assets/img/p04-grafico-crescimento-fontes.webp" width="1584" height="1108" alt="Gráfico de linhas: crescimento cumulativo das fontes por periódico de 2001 a 2021 (Figure 4. Source growth)." decoding="async">
+        </div></figure>
+      </article>
+
+      <article class="chart" data-chart="evolution">
+        <header class="chart__head">
+          <p class="chart__idx">02 / 04</p>
+          <h3 class="chart__title">Evolução temática</h3>
+          <ol class="chart__steps"><li>2001–2012</li><li>2013–2017</li><li>2018–2021</li></ol>
+          <p class="cite-block">Figura 10 — Shekhar; Shah (2023)</p>
+        </header>
+        <figure class="chart__fig"><div class="chart__img">
+          <img src="assets/img/p05-grafico-evolucao-tematica.webp" width="1610" height="772" alt="Diagrama de evolução temática em três períodos: 2001–2012, 2013–2017 e 2018–2021 (Figure 10. Thematic evolution)." decoding="async">
+        </div></figure>
+      </article>
+
+      <article class="chart" data-chart="map">
+        <header class="chart__head">
+          <p class="chart__idx">03 / 04</p>
+          <h3 class="chart__title">Mapa temático</h3>
+          <ol class="chart__steps chart__steps--q"><li>Motor Themes</li><li>Basic Themes</li><li>Niche Themes</li><li>Emerging or Declining Themes</li></ol>
+          <p class="cite-block">Figura 9 — Shekhar; Shah (2023)</p>
+        </header>
+        <figure class="chart__fig"><div class="chart__img chart__img--map">
+          <img src="assets/img/p06-grafico-mapa-tematico.webp" width="1580" height="1078" alt="Mapa temático com quadrantes de relevância (centralidade) e desenvolvimento (densidade) (Figure 9. Thematic map)." decoding="async">
+          <span class="q q--tr" aria-hidden="true"></span><span class="q q--br" aria-hidden="true"></span><span class="q q--tl" aria-hidden="true"></span><span class="q q--bl" aria-hidden="true"></span>
+        </div></figure>
+      </article>
+
+      <article class="chart" data-chart="cloud">
+        <header class="chart__head">
+          <p class="chart__idx">04 / 04</p>
+          <h3 class="chart__title">Nuvem de palavras</h3>
+          <p class="cite-block">Figura 7 — Shekhar; Shah (2023)</p>
+        </header>
+        <figure class="chart__fig"><div class="chart__img">
+          <img src="assets/img/p07-grafico-nuvem-palavras.webp" width="1152" height="822" alt="Nuvem de palavras da análise bibliométrica (Figure 7. Word cloud)." decoding="async">
+        </div></figure>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CENA 04 · COMO FUNCIONA (PDF p.8) -->
+<section class="how" id="como-funciona" data-scene="how" aria-labelledby="how-title">
+  <div class="how__stage">
+    <h2 class="how__title" id="how-title">Como funciona o marketing esportivo</h2>
+    <div class="how__panels">
+      <div class="how__panel how__panel--mix">
+        <p class="body">Funciona por meio de elementos promocionais. Meenaghan <cite>(1983 apud Shekhar; Shah, 2023)</cite> propôs incluir o patrocínio no composto de comunicação, ao lado da publicidade e da divulgação.</p>
+        <p class="how__mix" aria-label="Composto de comunicação"><span>Publicidade</span><span>Divulgação</span><span class="is-accent">Patrocínio</span></p>
+      </div>
+      <div class="how__panel how__panel--forms">
+        <p class="body how__intro">Mullin <cite>(1983 apud Shekhar; Shah, 2023)</cite> definiu três formas de atuação:</p>
+        <ol class="how__forms">
+          <li><span class="how__n">01</span><span class="how__t">despertar o interesse do torcedor, <em>considerada a mais importante</em>;</span></li>
+          <li><span class="how__n">02</span><span class="how__t">promover a participação em práticas esportivas;</span></li>
+          <li><span class="how__n">03</span><span class="how__t">estimular o consumo de produtos e marcas por meio do esporte.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /ato I -->
+
+<!-- =================================================================
+     ATO II — VITÓRIAS E DERROTAS (PDF p.9–17)
+     ================================================================= -->
+<div class="act" data-act="II" data-act-name="Vitórias e derrotas">
+
+<!-- CENA 05 · ABERTURA DOS CASES -->
+<section class="cases-open" id="ato-2" data-scene="casesOpen" aria-label="Ato II">
+  <div class="cases-open__stage">
+    <div class="cases-open__head">
+      <p class="opener__label">Ato II</p>
+      <h2 class="opener__title"><span class="mask"><span>Vitórias</span></span> <span class="mask"><span>e derrotas</span></span></h2>
+    </div>
+    <figure class="cases-open__tile t-redbull"><img src="assets/img/p12-redbull-stratos.webp" width="1920" height="1080" alt="" decoding="async"></figure>
+    <figure class="cases-open__tile t-adidas"><img src="assets/img/p14-adidas-maratona-desculpas.webp" width="1145" height="688" alt="" decoding="async"></figure>
+    <figure class="cases-open__tile t-reebok"><img src="assets/img/p16-reebok-anuncio.webp" width="640" height="294" alt="" decoding="async"></figure>
+    <span class="cases-open__slot" aria-hidden="true"></span>
+    <figure class="cases-open__nike"><img src="assets/img/p10-nike-dream-crazy.webp" width="1800" height="1013" alt="" decoding="async"></figure>
+    <div class="cases-open__caption" aria-hidden="true">
+      <p class="case__kicker"><span class="tag tag--win">Case de sucesso</span> 01</p>
+      <p class="case__title">Nike — Dream Crazy</p>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 06 · NIKE (PDF p.9–10) -->
+<section class="case case--nike" id="nike" aria-labelledby="nike-title">
+  <div class="nike__intro">
+    <figure class="nike__frame">
+      <img src="assets/img/p10-nike-dream-crazy.webp" width="1800" height="1013" alt="Peça da campanha Nike Dream Crazy com Colin Kaepernick: “Believe in something, even if it means sacrificing everything. Just do it.”" decoding="async">
+    </figure>
+    <div class="nike__caption">
+      <p class="case__kicker"><span class="tag tag--win">Case de sucesso</span> 01</p>
+      <h2 class="case__title" id="nike-title">Nike — Dream Crazy</h2>
+    </div>
+  </div>
+
+  <div class="grid case__body">
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">O que foi a campanha?</h3>
+      <p class="body">Em comemoração aos 30 anos do slogan Just Do It, a Nike lançou a campanha Dream Crazy, protagonizada pelo jogador de futebol americano Colin Kaepernick, conhecido por protestar contra a injustiça racial durante o hino nacional dos Estados Unidos.</p>
+      <p class="body">A campanha apresentou histórias de atletas que desafiaram limites, destacando coragem, superação e defesa de valores.</p>
+    </div>
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Qual era a estratégia?</h3>
+      <p class="body">A Nike utilizou o marketing esportivo para associar sua marca a valores sociais e emocionais, indo além da venda de produtos esportivos.</p>
+    </div>
+  </div>
+
+  <div class="stat" data-scene="stat">
+    <p class="case__h">Resultados documentados</p>
+    <p class="stat__num"><span class="stat__plus">+</span><span class="count" data-to="31">31</span><span class="stat__unit">%</span></p>
+    <p class="stat__label">As vendas online aumentaram 31% durante o período analisado pela Edison Trends, após o lançamento.</p>
+    <ul class="stat__list">
+      <li>A campanha gerou enorme repercussão, tanto positiva quanto negativa.</li>
+      <li>Apesar das ameaças de boicote, fortaleceu sua conexão com parte importante do público.</li>
+    </ul>
+    <p class="cite-block">Marketing Dive</p>
+  </div>
+
+  <div class="grid case__body">
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Por que deu certo?</h3>
+      <p class="body">A campanha foi coerente com o posicionamento histórico da Nike, que valoriza atletas capazes de desafiar expectativas. A marca assumiu um posicionamento controverso, mas relevante para seu público.</p>
+    </div>
+    <div class="case__lesson" data-reveal>
+      <h3 class="case__h">Lição para o marketing esportivo</h3>
+      <p class="lesson">Uma campanha pode gerar controvérsia e ainda assim alcançar resultados positivos, desde que haja coerência entre os valores da marca, o atleta escolhido e o público-alvo.</p>
+    </div>
+  </div>
+  <p class="case__source grid">Fonte: Marketing Dive — resultados da campanha</p>
+</section>
+
+<!-- CENA 07 · RED BULL STRATOS (PDF p.11–12) -->
+<section class="case case--redbull" id="redbull" aria-labelledby="rb-title">
+  <div class="rb__scene" data-scene="redbull">
+    <figure class="rb__frame">
+      <img src="assets/img/p12-redbull-stratos.webp" width="1920" height="1080" alt="Felix Baumgartner na porta da cápsula Red Bull Stratos, acima da Terra." decoding="async">
+      <figcaption class="rb__alt">
+        <span class="rb__alt-num">39<small>km</small></span>
+        <span class="rb__alt-label">aproximadamente, na estratosfera</span>
+      </figcaption>
+    </figure>
+    <div class="rb__caption">
+      <p class="case__kicker"><span class="tag tag--win">Case de sucesso</span> 02</p>
+      <h2 class="case__title" id="rb-title">Red Bull — Stratos</h2>
+    </div>
+  </div>
+
+  <div class="grid case__body">
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">O que foi a campanha?</h3>
+      <p class="body">A Red Bull patrocinou o projeto Stratos, no qual o paraquedista Felix Baumgartner saltou de aproximadamente 39 quilômetros de altitude, na estratosfera.</p>
+      <p class="body">O acontecimento foi transmitido ao vivo para espectadores do mundo inteiro.</p>
+    </div>
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Qual era a estratégia?</h3>
+      <p class="body">Em vez de criar um comercial tradicional, a Red Bull transformou um acontecimento esportivo extremo em uma experiência de entretenimento e comunicação global.</p>
+      <p class="body"><strong>A marca não apenas patrocinou o esporte: ela ajudou a produzir o próprio espetáculo.</strong></p>
+    </div>
+  </div>
+
+  <div class="rb__stats grid" data-scene="rbStats">
+    <p class="case__h rb__stats-h">Resultados documentados</p>
+    <div class="rb__stat"><p class="rb__num">+<span class="count" data-to="8">8</span><small> mi</small></p><p class="rb__label">Mais de 8 milhões de espectadores simultâneos no YouTube.</p></div>
+    <div class="rb__stat"><p class="rb__num">~<span class="count" data-to="22">22</span><small> mi</small></p><p class="rb__label">Cerca de 22 milhões de visitas ao site do projeto no dia do salto.</p></div>
+    <div class="rb__stat"><p class="rb__num"><span class="count" data-to="2012" data-from="2000">2012</span></p><p class="rb__label">Reconhecimento internacional como uma das grandes ações de marketing de 2012.</p></div>
+    <p class="cite-block rb__stats-src">Guinness World Records</p>
+  </div>
+
+  <div class="grid case__body">
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Por que deu certo?</h3>
+      <p class="body">O salto transmitia precisamente os valores da marca: adrenalina, aventura, coragem e superação de limites. O evento também gerou conteúdo espontâneo e compartilhamentos.</p>
+    </div>
+    <div class="case__lesson" data-reveal>
+      <h3 class="case__h">Lição para o marketing esportivo</h3>
+      <p class="lesson">Criar experiências extraordinárias pode ser mais poderoso do que simplesmente inserir um logotipo em um evento esportivo.</p>
+    </div>
+  </div>
+  <p class="case__source grid">Fonte: Guinness World Records — audiência do Stratos</p>
+</section>
+
+<!-- Divisor narrativo: vitórias → derrotas -->
+<section class="turn" data-scene="turn" aria-label="Cases que deram errado">
+  <p class="turn__text"><span class="turn__a">Cases que</span> <span class="turn__b">deram errado</span></p>
+  <span class="turn__rule" aria-hidden="true"></span>
+</section>
+
+<!-- CENA 08 · ADIDAS (PDF p.13–14) -->
+<section class="case case--adidas" id="adidas" aria-labelledby="ad-title">
+  <div class="ad__scene" data-scene="adidas">
+    <div class="ad__head">
+      <p class="case__kicker"><span class="tag tag--loss">Case que deu errado</span> 03</p>
+      <h2 class="case__title" id="ad-title">Adidas — Maratona de Boston</h2>
+    </div>
+    <figure class="ad__email">
+      <img src="assets/img/p14-adidas-email.webp" width="940" height="705" alt="E-mail da Adidas Running com o assunto “Congrats, you survived the Boston Marathon!” destacado." decoding="async">
+    </figure>
+    <blockquote class="ad__quote">
+      <p class="ad__phrase">“Congrats, you <span class="ad__word">survived<span class="ad__under" aria-hidden="true"></span></span> the Boston Marathon!”</p>
+      <p class="ad__translation">Em português: “Parabéns, você sobreviveu à Maratona de Boston!”</p>
+    </blockquote>
+  </div>
+
+  <div class="grid case__body">
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">O que foi a campanha?</h3>
+      <p class="body">Após a Maratona de Boston de 2017, a Adidas enviou um e-mail de marketing aos participantes com a frase: “Congrats, you survived the Boston Marathon!”</p>
+      <p class="body">O problema é que, em 2013, a mesma maratona havia sofrido um atentado terrorista que matou três pessoas e deixou centenas de feridos.</p>
+    </div>
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Qual era a estratégia?</h3>
+      <p class="body">A marca pretendia fortalecer o relacionamento com os corredores, celebrando a conquista esportiva e mantendo contato com os participantes do evento.</p>
+    </div>
+  </div>
+
+  <div class="split grid">
+    <figure class="split__media mask-reveal" data-mask="up">
+      <img src="assets/img/p14-adidas-maratona-desculpas.webp" width="1145" height="688" alt="Corredores na Maratona de Boston ao lado do e-mail de desculpas da Adidas." decoding="async">
+    </figure>
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">O que deu errado?</h3>
+      <ul class="list">
+        <li>A palavra “sobreviveu” remeteu diretamente à tragédia de 2013.</li>
+        <li>A mensagem gerou críticas nas redes sociais.</li>
+        <li>A Adidas precisou emitir um pedido público de desculpas, reconhecendo que a comunicação foi insensível.</li>
+      </ul>
+      <p class="cite-block">Sports Business Journal</p>
+    </div>
+  </div>
+
+  <div class="grid case__body">
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Por que fracassou?</h3>
+      <p class="body">A marca não considerou adequadamente o contexto histórico e emocional do evento. Uma mensagem que deveria celebrar o esporte acabou sendo interpretada como falta de sensibilidade.</p>
+    </div>
+    <div class="case__lesson" data-reveal>
+      <h3 class="case__h">Lição para o marketing esportivo</h3>
+      <p class="lesson">Conhecer o histórico, a cultura e as emoções associadas a um evento é fundamental para evitar crises de imagem.</p>
+    </div>
+  </div>
+  <p class="case__source grid">Fonte: TIME — Adidas pede desculpas pela mensagem</p>
+</section>
+
+<!-- CENA 09 · REEBOK (PDF p.15–16) -->
+<section class="case case--reebok" id="reebok" aria-labelledby="rk-title">
+  <div class="rk__head grid">
+    <p class="case__kicker"><span class="tag tag--loss">Case que deu errado</span> 04</p>
+    <h2 class="case__title" id="rk-title">Reebok — Workout</h2>
+  </div>
+  <div class="rk__scene" data-scene="reebok">
+    <figure class="rk__ad">
+      <img src="assets/img/p16-reebok-anuncio.webp" width="640" height="294" alt="Anúncio da Reebok com o texto “Cheat on your girlfriend, not on your workout”." decoding="async">
+    </figure>
+    <blockquote class="rk__slogan">
+      <p class="rk__en"><span class="rk__l">“Cheat on your girlfriend,</span> <span class="rk__l">not on your workout.”</span></p>
+      <p class="rk__pt">Em português: “Traia sua namorada, mas não seu treino.”</p>
+    </blockquote>
+  </div>
+
+  <div class="grid case__body">
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">O que foi a campanha?</h3>
+      <p class="body">Em 2012, peças publicitárias da Reebok foram exibidas em academias parceiras na Alemanha com o slogan: “Cheat on your girlfriend, not on your workout.”</p>
+    </div>
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Qual era a estratégia?</h3>
+      <p class="body">Utilizar uma frase provocativa e humorística para incentivar a dedicação aos exercícios físicos e chamar a atenção do público fitness.</p>
+    </div>
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">O que deu errado?</h3>
+      <ul class="list">
+        <li>O slogan foi interpretado como uma normalização da infidelidade.</li>
+        <li>A campanha provocou críticas e pedidos de boicote.</li>
+        <li>A Reebok retirou os anúncios e se desculpou.</li>
+        <li>A empresa esclareceu que a ação era localizada e não fazia parte de uma campanha global.</li>
+      </ul>
+      <p class="cite-block">CBS Boston</p>
+    </div>
+    <div class="case__block" data-reveal>
+      <h3 class="case__h">Por que fracassou?</h3>
+      <p class="body">A tentativa de chamar atenção por meio da provocação não foi acompanhada de uma avaliação adequada da percepção do consumidor.</p>
+      <p class="body">A mensagem sobre disciplina esportiva foi ofuscada por um assunto controverso e desconectado dos benefícios do produto.</p>
+    </div>
+  </div>
+  <div class="grid case__body">
+    <div class="case__lesson case__lesson--wide" data-reveal>
+      <h3 class="case__h">Lição para o marketing esportivo</h3>
+      <p class="lesson">Ser ousado não significa abandonar os valores e a identidade da marca. Uma comunicação provocativa precisa fazer sentido para o público.</p>
+    </div>
+  </div>
+  <p class="case__source grid">Fonte: The Drum — campanha retirada pela Reebok</p>
+</section>
+
+<!-- CENA 10 · ANÁLISE (PDF p.17) -->
+<section class="compare" id="analise" data-scene="compare" aria-labelledby="cmp-title">
+  <div class="compare__stage">
+    <header class="compare__head">
+      <h2 class="compare__title" id="cmp-title">Análise das campanhas</h2>
+      <p class="compare__sub">Comparativo de estratégias e resultados no marketing esportivo</p>
+    </header>
+    <div class="compare__cols">
+      <div class="compare__col compare__col--win">
+        <h3 class="compare__colh"><span class="dot" aria-hidden="true"></span>Cases de sucesso</h3>
+        <dl class="compare__row">
+          <dt><img src="assets/img/p10-nike-dream-crazy.webp" alt="" width="1800" height="1013" decoding="async">Nike — Dream Crazy</dt>
+          <dd><span>Estratégia</span>Atletas, valores e posicionamento social</dd>
+          <dd><span>Resultado</span>Sucesso comercial documentado</dd>
+        </dl>
+        <dl class="compare__row">
+          <dt><img src="assets/img/p12-redbull-stratos.webp" alt="" width="1920" height="1080" decoding="async">Red Bull — Stratos</dt>
+          <dd><span>Estratégia</span>Experiência esportiva e entretenimento</dd>
+          <dd><span>Resultado</span>Alcance extraordinário</dd>
+        </dl>
+      </div>
+      <span class="compare__divider" aria-hidden="true"></span>
+      <div class="compare__col compare__col--loss">
+        <h3 class="compare__colh"><span class="dot dot--hollow" aria-hidden="true"></span>Cases que deram errado</h3>
+        <dl class="compare__row">
+          <dt><img src="assets/img/p14-adidas-maratona-desculpas.webp" alt="" width="1145" height="688" decoding="async">Adidas — Boston</dt>
+          <dd><span>Estratégia</span>Relacionamento com participantes</dd>
+          <dd><span>Resultado</span>Crise de comunicação</dd>
+        </dl>
+        <dl class="compare__row">
+          <dt><img src="assets/img/p16-reebok-anuncio.webp" alt="" width="640" height="294" decoding="async">Reebok — Workout</dt>
+          <dd><span>Estratégia</span>Humor provocativo e motivação</dd>
+          <dd><span>Resultado</span>Rejeição e retirada dos anúncios</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="verdict" aria-label="Conclusão da análise">
+  <div class="grid verdict__grid">
+    <p class="verdict__big" data-split>O sucesso do marketing esportivo depende da <mark>coerência</mark> entre a marca, a mensagem e os valores associados ao esporte.</p>
+    <div class="verdict__text">
+      <p class="body" data-reveal>Os cases demonstram que o sucesso do marketing esportivo não depende apenas da visibilidade de uma campanha, mas da coerência entre a marca, a mensagem e os valores associados ao esporte.</p>
+      <p class="body" data-reveal>A Nike e a Red Bull conseguiram transformar o esporte em uma expressão de suas identidades. Já a Adidas e a Reebok cometeram erros de comunicação que desviaram a atenção do objetivo inicial de suas ações.</p>
+      <p class="body" data-reveal>Os casos da Adidas e da Reebok ajudam a demonstrar por que é essencial compreender o contexto esportivo e evitar mensagens que possam ser interpretadas de forma negativa.</p>
+      <p class="body" data-reveal>Esses quatro exemplos também permitem discutir uma diferença importante: repercussão não é necessariamente sucesso. O que importa é se a repercussão contribui para os objetivos da marca.</p>
+    </div>
+    <p class="verdict__pull" data-reveal>Repercussão não é necessariamente sucesso.</p>
+  </div>
+</section>
+
+</div><!-- /ato II -->
+
+<!-- =================================================================
+     ATO III — NOSSA VEZ DE JOGAR (PDF p.18–30)
+     ================================================================= -->
+<div class="act" data-act="III" data-act-name="Nossa vez de jogar">
+
+<!-- CENA 11 · TRANSIÇÃO (PDF p.18) -->
+<section class="our" id="ato-3" data-scene="ourTurn" aria-label="Ato III">
+  <div class="our__stage">
+    <div class="our__mosaic" aria-hidden="true">
+      <figure class="our__tile"><img src="assets/img/p10-nike-dream-crazy.webp" alt="" width="1800" height="1013" decoding="async"></figure>
+      <figure class="our__tile"><img src="assets/img/p12-redbull-stratos.webp" alt="" width="1920" height="1080" decoding="async"></figure>
+      <figure class="our__tile"><img src="assets/img/p14-adidas-maratona-desculpas.webp" alt="" width="1145" height="688" decoding="async"></figure>
+      <figure class="our__tile"><img src="assets/img/p16-reebok-anuncio.webp" alt="" width="640" height="294" decoding="async"></figure>
+    </div>
+    <div class="our__head">
+      <p class="opener__label">Ato III · Campanha</p>
+      <h2 class="opener__title our__title"><span class="mask"><span>Nossa vez</span></span> <span class="mask"><span>de jogar</span></span></h2>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 12 · GOLDKO (PDF p.19–21) -->
+<section class="goldko" id="goldko" aria-labelledby="gk-title">
+  <header class="goldko__head grid">
+    <p class="eyebrow">A marca</p>
+    <h2 class="section-title" id="gk-title" data-split>GoldKo</h2>
+  </header>
+  <div class="goldko__collage" data-scene="goldko">
+    <figure class="gk gk--a"><img src="assets/img/p19-goldko-cesta.webp" width="577" height="737" alt="Pessoa segurando cesta com embalagens GoldKo." decoding="async"></figure>
+    <figure class="gk gk--b"><img src="assets/img/p19-goldko-flatlay.webp" width="663" height="883" alt="Embalagens GoldKo dispostas com chocolates." decoding="async"></figure>
+    <figure class="gk gk--c"><img src="assets/img/p19-goldko-pilha.webp" width="663" height="883" alt="Pilha de embalagens GoldKo sobre fundo rosa." decoding="async"></figure>
+  </div>
+  <div class="grid goldko__story">
+    <h3 class="subtitle" data-reveal>História da marca</h3>
+    <ol class="timeline">
+      <li data-reveal><span class="timeline__y">2015</span><p class="body">A história da GoldKo começou em 2015, quando os irmãos Gregory e Chantal Kopenhagen Goldfinger, junto ao pai Paulo Goldfinger, decidiram criar uma nova marca de chocolates.</p></li>
+      <li data-reveal><span class="timeline__y">1996</span><p class="body">A família possui uma relação histórica com o setor: seus antepassados fundaram a tradicional Kopenhagen, vendida pela família em 1996.</p></li>
+      <li data-reveal><span class="timeline__y">—</span><p class="body">O objetivo da nova empresa era enfrentar um desafio do mercado: desenvolver um chocolate sem adição de açúcares que fosse tão saboroso e cremoso quanto um chocolate convencional, sem o sabor residual frequentemente associado a produtos adoçados com substitutos do açúcar.</p></li>
+      <li data-reveal><span class="timeline__y">2016</span><p class="body">Após um período de pesquisa e desenvolvimento, o primeiro chocolate GoldKo surgiu em 2016.</p></li>
+    </ol>
+  </div>
+  <div class="grid goldko__sells">
+    <h3 class="subtitle" data-reveal>O que a marca vende?</h3>
+    <p class="lead" data-reveal>O portfólio da GoldKo vai além das barras de chocolate. A empresa trabalha com diferentes formatos de doces, além de produtos para consumo cotidiano e para presentear.</p>
+  </div>
+</section>
+
+<!-- CENA 13 · HYROX (PDF p.22–23) -->
+<section class="hyrox" id="hyrox" aria-labelledby="hx-title">
+  <div class="hyrox__scene" data-scene="hyrox">
+    <p class="hyrox__word" aria-hidden="true">HYROX</p>
+    <header class="hyrox__head">
+      <p class="eyebrow">O esporte</p>
+      <h2 class="section-title" id="hx-title">HYROX</h2>
+    </header>
+    <figure class="hx hx--a"><img src="assets/img/p23-hyrox-corda.webp" width="589" height="884" alt="Atleta treinando com cordas em uma arena HYROX." decoding="async"></figure>
+    <figure class="hx hx--b"><img src="assets/img/p23-hyrox-lunge.webp" width="663" height="883" alt="Atleta realizando avanço com saco de peso diante do painel HYROX." decoding="async"></figure>
+    <figure class="hx hx--c"><img src="assets/img/p23-hyrox-corrida.webp" width="600" height="565" alt="Atletas correndo na arena HYROX, com movimento desfocado." decoding="async"></figure>
+  </div>
+  <div class="grid hyrox__text">
+    <h3 class="subtitle" data-reveal>O que é</h3>
+    <div class="hyrox__cols">
+      <p class="lead" data-reveal>O HYROX é uma modalidade de competição esportiva que combina corrida e exercícios funcionais de força e resistência.</p>
+      <div>
+        <p class="body" data-reveal><span class="hl">Criado na Alemanha, em 2017,</span> o HYROX nasceu com o objetivo de transformar a prática de exercícios físicos em uma competição acessível a pessoas com diferentes níveis de condicionamento.</p>
+        <p class="body" data-reveal>Diferentemente de uma academia convencional, na qual cada pessoa realiza seu próprio treinamento, o HYROX oferece um desafio padronizado, permitindo que participantes de diferentes países comparem seus resultados.</p>
+        <p class="body" data-reveal>A proposta é simples: testar força, resistência, condicionamento cardiovascular e capacidade física em uma única competição.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 14 · CAMPANHA (PDF p.24) -->
+<section class="camp" id="campanha" data-scene="campaign" aria-labelledby="cp-title">
+  <div class="camp__stage">
+    <div class="camp__text">
+      <p class="eyebrow">Campanha · Ana Tholl × GoldKo</p>
+      <h2 class="camp__title" id="cp-title"><span class="mask"><span>GoldKo to GO!</span></span><span class="mask camp__with"><span>com Ana Tholl</span></span></h2>
+      <p class="camp__sub">Sua jornada até o HYROX.</p>
+      <div class="camp__more">
+        <p class="body">A GoldKo patrocina um desafio de <strong class="hl">21 dias</strong> conduzido por Ana Tholl, integrando treinos, receitas com chocolate sem adição de açúcares e conteúdos sobre equilíbrio alimentar.</p>
+        <p class="body">Os participantes recebem um kit esportivo exclusivo GoldKo para utilizar no HYROX, conectando a experiência digital à competição presencial e ampliando a visibilidade da marca.</p>
+        <p class="camp__goal"><span>Objetivo</span>associar a GoldKo a um estilo de vida ativo, mostrando que equilíbrio e prazer podem caminhar juntos.</p>
+      </div>
+      <p class="camp__note">Proposta acadêmica autoral — campanha hipotética.</p>
+    </div>
+    <figure class="camp__media">
+      <img src="assets/img/p24-ana-tholl-celular-original.webp" width="941" height="1672" alt="Ana Tholl com top GoldKo segurando um celular com o aplicativo da campanha." decoding="async">
+    </figure>
+  </div>
+</section>
+
+<!-- CENA 15 · APP (PDF p.25) -->
+<section class="app" id="app" data-scene="app" aria-labelledby="app-title">
+  <div class="app__stage">
+    <header class="app__head">
+      <p class="eyebrow">Campanha</p>
+      <h2 class="section-title section-title--sm" id="app-title">O meio de comunicação</h2>
+    </header>
+    <div class="app__row">
+      <figure class="app__ph app__ph--nut"><img src="assets/img/p25-app-nutricao.webp" width="373" height="676" alt="Tela do aplicativo: Nutrição — Alimentação estratégica." decoding="async"></figure>
+      <figure class="app__ph app__ph--trn"><img src="assets/img/p25-app-treinos.webp" width="466" height="844" alt="Tela do aplicativo: Treinos — Seu programa de 21 dias." decoding="async"></figure>
+      <figure class="app__ph app__ph--main"><img src="assets/img/p25-app-login-home.webp" width="786" height="982" alt="Dois celulares com as telas de criação de conta e início do app GoldKo To Go." decoding="async"></figure>
+      <figure class="app__ph app__ph--kit"><img src="assets/img/p25-app-kit.webp" width="377" height="669" alt="Tela do aplicativo: Meu kit — Seu kit GoldKo." decoding="async"></figure>
+      <figure class="app__ph app__ph--ios"><img src="assets/img/p25-app-iphone-icone.webp" width="674" height="747" alt="iPhone exibindo o ícone do app GoldKo To Go na tela inicial." decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 16 · KIT (PDF p.26) -->
+<section class="kit" id="kit" data-scene="kit" aria-labelledby="kit-title">
+  <div class="kit__stage">
+    <header class="kit__head">
+      <p class="eyebrow">Campanha</p>
+      <h2 class="section-title section-title--sm" id="kit-title">Montamos um kit para encarar esse desafio!</h2>
+      <p class="kit__q">O que preparamos?</p>
+    </header>
+    <div class="kit__row">
+      <figure class="kit__item kit__item--socks"><img src="assets/img/p26-kit-meias.webp" width="399" height="632" alt="Meias azuis GoldKo." decoding="async"><figcaption>Meias</figcaption></figure>
+      <figure class="kit__item kit__item--top"><img src="assets/img/p26-kit-top.webp" width="768" height="512" alt="Top esportivo azul GoldKo, frente e costas." decoding="async"><figcaption>Top</figcaption></figure>
+      <figure class="kit__item kit__item--tee"><img src="assets/img/p26-kit-camiseta.webp" width="759" height="506" alt="Camiseta azul GoldKo, frente e costas." decoding="async"><figcaption>Camiseta</figcaption></figure>
+      <figure class="kit__item kit__item--bottle"><img src="assets/img/p26-kit-garrafa.webp" width="410" height="615" alt="Garrafa azul GoldKo." decoding="async"><figcaption>Garrafa</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 17 · AZUL (PDF p.27) -->
+<section class="blue" id="azul" aria-labelledby="blue-title">
+  <header class="grid blue__head">
+    <p class="eyebrow">Campanha</p>
+    <h2 class="section-title" id="blue-title" data-split>E por que tudo tão <span class="accent">azul</span>?</h2>
+  </header>
+  <div class="blue__grid" data-scene="blue">
+    <figure class="bl bl--a"><img src="assets/img/p27-azul-atleta-saco.webp" width="570" height="691" alt="Atleta com saco de peso nos ombros, usando shorts azul GoldKo." decoding="async"></figure>
+    <figure class="bl bl--b"><img src="assets/img/p27-azul-trio.webp" width="922" height="615" alt="Três atletas em ação usando peças azuis GoldKo." decoding="async"></figure>
+    <figure class="bl bl--c"><img src="assets/img/p27-azul-dupla.webp" width="561" height="702" alt="Duas atletas em treino, uma com top azul GoldKo." decoding="async"></figure>
+    <span class="blue__line" aria-hidden="true"></span>
+  </div>
+</section>
+
+<!-- CENA 18 · NO EVENTO (PDF p.28) -->
+<section class="event" id="evento" data-scene="event" aria-labelledby="ev-title">
+  <div class="event__stage">
+    <header class="event__head">
+      <p class="eyebrow">Campanha</p>
+      <h2 class="section-title section-title--sm" id="ev-title">No evento</h2>
+      <p class="event__quote">“Uma campanha que ultrapassa as telas.”</p>
+    </header>
+    <div class="event__grid">
+      <figure class="ev"><img src="assets/img/p28-evento-01.webp" width="410" height="615" alt="Atleta com top azul GoldKo subindo na corda." decoding="async"></figure>
+      <figure class="ev"><img src="assets/img/p28-evento-06.webp" width="512" height="768" alt="Atleta com shorts GoldKo empurrando trenó." decoding="async"></figure>
+      <figure class="ev"><img src="assets/img/p28-evento-02.webp" width="410" height="615" alt="Atleta com top GoldKo no remo ergômetro." decoding="async"></figure>
+      <figure class="ev"><img src="assets/img/p28-evento-07.webp" width="512" height="768" alt="Atleta com shorts GoldKo lançando bola medicinal." decoding="async"></figure>
+      <figure class="ev"><img src="assets/img/p28-evento-03.webp" width="377" height="669" alt="Atleta GoldKo empurrando trenó na arena." decoding="async"></figure>
+      <figure class="ev"><img src="assets/img/p28-evento-05.webp" width="377" height="669" alt="Atleta com shorts azul em movimento." decoding="async"></figure>
+      <figure class="ev"><img src="assets/img/p28-evento-04.webp" width="436" height="578" alt="Atleta com top GoldKo carregando saco de peso." decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 19 · CONCLUSÃO (PDF p.29) -->
+<section class="conclusion" id="conclusao" aria-labelledby="cc-title">
+  <div class="grid conclusion__grid">
+    <h2 class="section-title conclusion__title" id="cc-title" data-split>Conclusão</h2>
+    <div class="conclusion__text">
+      <p class="lead" data-reveal>A escolha de Ana Tholl como influenciadora da campanha apresenta um forte potencial estratégico, pois sua imagem está associada não apenas à prática esportiva, mas também à alimentação equilibrada e ao prazer de comer sem restrições excessivas. Seu conteúdo sobre receitas e sua rotina de treinos criam uma conexão natural com a GoldKo, que oferece chocolates sem adição de açúcares, permitindo que o produto seja apresentado de forma autêntica, sem depender de promessas relacionadas ao desempenho esportivo.</p>
+      <p class="body" data-reveal>Além disso, a parceria ultrapassa a simples exposição de um produto. Ao integrar a influenciadora, o universo competitivo do HYROX e a proposta da GoldKo, a campanha pode gerar identificação, engajamento e fortalecimento da imagem da marca. Essa estratégia está alinhada aos conceitos discutidos por Shekhar e Shah <cite>(2023)</cite>, que destacam a relevância da identificação, do envolvimento do consumidor, da comunidade e do valor de marca no marketing esportivo.</p>
+      <p class="body" data-reveal>A proposta também incorpora aprendizados das campanhas da Nike e da Red Bull:</p>
+      <dl class="learned">
+        <div data-reveal><dt>Da Nike</dt><dd>a importância de uma mensagem coerente com os valores da marca;</dd></div>
+        <div data-reveal><dt>Da Red Bull</dt><dd>a capacidade de transformar o esporte em uma experiência relevante e compartilhável.</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+</div><!-- /ato III -->
+
+<!-- CENA 20 · REFERÊNCIAS (PDF p.30) -->
+<div class="act" data-act="—" data-act-name="Referências">
+<section class="refs" id="referencias" aria-labelledby="refs-title">
+  <div class="grid refs__grid">
+    <h2 class="refs__title" id="refs-title">Referências</h2>
+    <div class="refs__list">
+      <p class="ref">SHEKHAR, Suraj Kushe; SHAH, Mohd Asif. Marketing esportivo e evolução conceitual: uma análise bibliométrica. <em>Sage Open</em>, v. 13, n. 3, p. 21582440231192915, 2023.</p>
+      <p class="ref"><a href="https://www.thedrum.com/news/cheat-your-girlfriend-not-your-workout-ad-reebok-pulled" target="_blank" rel="noopener">https://www.thedrum.com/news/cheat-your-girlfriend-not-your-workout-ad-reebok-pulled</a></p>
+      <p class="ref"><a href="https://www.timesofisrael.com/liveblog_entry/adidas-apologizes-for-any-offense-over-promotion-featuring-ex-idf-soldier-who-lost-leg-in-2021/" target="_blank" rel="noopener">https://www.timesofisrael.com/liveblog_entry/adidas-apologizes-for-any-offense-over-promotion-featuring-ex-idf-soldier-who-lost-leg-in-2021/</a></p>
+      <p class="ref"><a href="https://www.marketingdive.com/news/best-marketing-campaigns-2025-navigating-uncertainty/807155/" target="_blank" rel="noopener">https://www.marketingdive.com/news/best-marketing-campaigns-2025-navigating-uncertainty/807155/</a></p>
+      <p class="ref"><a href="https://www.guinnessworldrecords.com/records/hall-of-fame/felix-baumgartner-first-person-to-break-sound-barrier-in-freefall" target="_blank" rel="noopener">https://www.guinnessworldrecords.com/records/hall-of-fame/felix-baumgartner-first-person-to-break-sound-barrier-in-freefall</a></p>
+      <p class="refs__also">Citados no texto: Yang et al. (2009 apud Shekhar; Shah, 2023); Meenaghan (1983 apud Shekhar; Shah, 2023); Mullin (1983 apud Shekhar; Shah, 2023). Fontes indicadas nos cases: Marketing Dive; Edison Trends; Guinness World Records; Sports Business Journal; TIME; CBS Boston; The Drum.</p>
+    </div>
+  </div>
+  <footer class="end">
+    <a class="end__top" href="#inicio" data-nav>Voltar ao início <span aria-hidden="true">↑</span></a>
+    <p>Marketing Esportivo — trabalho acadêmico</p>
+  </footer>
+</section>
+</div>
+
+</main>
+
+<!-- =========================================================
+     GSAP + ScrollTrigger + ScrollToPlugin
+     1º tenta a CDN (jsDelivr); se falhar (sem internet), usa a cópia
+     local em assets/vendor. As animações só iniciam DEPOIS que as três
+     bibliotecas estiverem carregadas.
+     ========================================================= -->
+<script>
+(function () {
+  var VERSION = '3.15.1';
+  var LIBS = ['gsap', 'ScrollTrigger', 'ScrollToPlugin'];
+  var CDN = 'https://cdn.jsdelivr.net/npm/gsap@' + VERSION + '/dist/';
+  var LOCAL = 'assets/vendor/';
+
+  function load(src, ok, fail) {
+    var s = document.createElement('script');
+    s.src = src;
+    s.onload = ok;
+    s.onerror = fail;
+    document.head.appendChild(s);
+  }
+  function loadLib(name, done) {
+    load(CDN + name + '.min.js', done, function () {
+      console.info('[GSAP] CDN indisponível para ' + name + ', usando cópia local.');
+      load(LOCAL + name + '.min.js', done, done);
+    });
+  }
+  function next(i) {
+    if (i < LIBS.length) { loadLib(LIBS[i], function () { next(i + 1); }); return; }
+    var ready = window.gsap && window.ScrollTrigger && window.ScrollToPlugin;
+    if (!ready) {
+      console.error('[GSAP] Bibliotecas não carregadas — site exibido sem animações.');
+      document.documentElement.classList.add('no-motion');
+      return;
+    }
+    window.startSite();
+  }
+  window.__loadGSAP = function () { next(0); };
+})();
+</script>
+<script>
+/* Código do site — executado somente após o GSAP carregar */
+window.startSite = function () {
+/* ===== js/config.js ===== */
+/* =========================================================
+   CONFIGURAÇÃO — ajuste o ritmo da apresentação aqui
+   ========================================================= */
+window.MKT = {
+  config: {
+    // Multiplica a distância de rolagem de TODAS as cenas fixas.
+    // 1 = padrão · 0.8 = cenas mais curtas (avança mais rápido) · 1.3 = mais lentas
+    pace: 1,
+    // Suavização do vínculo animação ↔ scroll (segundos). 0 = colado ao scroll.
+    scrub: 0.6,
+    // Duração das revelações de texto (não vinculadas ao scroll).
+    revealDuration: 0.9,
+    // A partir de qual largura as cenas fixas (pin) são ativadas.
+    desktopQuery: '(min-width: 900px)'
+  },
+  scenes: {}
+};
+
+/* ===== js/core/helpers.js ===== */
+/* =========================================================
+   HELPERS — utilidades compartilhadas pelas cenas
+   ========================================================= */
+(function (M) {
+  const C = M.config;
+
+  /** Distância de rolagem de uma cena fixa: len(2) → "+=200%" (× pace) */
+  M.len = (screens) => '+=' + Math.round(screens * 100 * C.pace) + '%';
+
+  /** ScrollTrigger padrão de cena fixa */
+  M.pinned = (trigger, screens, extra) => Object.assign({
+    trigger, start: 'top top', end: M.len(screens), pin: true, scrub: C.scrub,
+    anticipatePin: 1, invalidateOnRefresh: true
+  }, extra || {});
+
+  /** Quebra o texto em palavras mascaradas (preserva <span>, <mark> etc.) */
+  M.splitWords = (el) => {
+    if (!el || el.dataset.splitDone) return [];
+    const words = [];
+    const walk = (node) => {
+      Array.from(node.childNodes).forEach((child) => {
+        if (child.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const mask = document.createElement('span');
+            mask.className = 'mask';
+            const inner = document.createElement('span');
+            inner.textContent = part;
+            mask.appendChild(inner);
+            frag.appendChild(mask);
+            words.push(inner);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          walk(child);
+        }
+      });
+    };
+    walk(el);
+    el.dataset.splitDone = '1';
+    return words;
+  };
+
+  /** Posição de um elemento relativa a um ancestral (ignora transforms) */
+  M.offsetWithin = (el, ancestor) => {
+    let x = 0, y = 0, n = el;
+    while (n && n !== ancestor) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+    return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+  };
+
+  /** Contador numérico (ex.: 0 → 31) */
+  M.countTo = (el, opts) => {
+    const to = parseFloat(el.dataset.to);
+    const from = parseFloat(el.dataset.from || 0);
+    const obj = { v: from };
+    return gsap.fromTo(obj, { v: from }, Object.assign({
+      v: to, ease: 'power2.out', duration: 1.6,
+      onUpdate: () => { el.textContent = Math.round(obj.v); }
+    }, opts || {}));
+  };
+
+  const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+  const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+  M.$ = $; M.$$ = $$;
+})(window.MKT);
+
+/* ===== js/core/nav.js ===== */
+/* =========================================================
+   NAVEGAÇÃO — progresso, ato atual, índice, atalhos de teclado
+   ========================================================= */
+(function (M) {
+  const { $, $$ } = M;
+
+  /** Rola até uma seção. Se ela estiver dentro de um pin, usa o espaçador. */
+  M.goTo = (target) => {
+    const el = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!el) return;
+    const holder = el.parentElement && el.parentElement.classList.contains('pin-spacer') ? el.parentElement : el;
+    const y = holder.getBoundingClientRect().top + window.scrollY;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dist = Math.abs(y - window.scrollY);
+    gsap.to(window, {
+      scrollTo: { y, autoKill: true },
+      duration: reduce ? 0 : Math.min(2.2, 0.6 + dist / 6000),
+      ease: 'power3.inOut'
+    });
+    if (el.id) history.replaceState(null, '', '#' + el.id);
+  };
+
+  M.initNav = () => {
+    const bar = $('.progress__bar');
+    const topbar = $('.topbar');
+    const actNum = $('.topbar__act-num');
+    const actName = $('.topbar__act-name');
+    const menuBtn = $('.topbar__menu');
+    const index = $('#indice');
+    const totop = $('.totop');
+
+    // Progresso global
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: (self) => {
+        bar.style.transform = 'scaleX(' + self.progress.toFixed(4) + ')';
+        topbar.classList.toggle('is-scrolled', self.scroll() > 40);
+        totop.classList.toggle('is-on', self.scroll() > window.innerHeight * 1.5);
+      }
+    });
+
+    // Ato atual
+    const setAct = (act) => {
+      if (!act) { actNum.textContent = ''; actName.textContent = ''; return; }
+      actNum.textContent = act.dataset.act === '—' ? '' : 'Ato ' + act.dataset.act;
+      actName.textContent = act.dataset.actName;
+    };
+    $$('.act').forEach((act, i, all) => {
+      ScrollTrigger.create({
+        trigger: act, start: 'top 50%', end: 'bottom 50%',
+        onToggle: (self) => {
+          if (self.isActive) setAct(act);
+          else if (i === 0 && self.direction < 0) setAct(null);
+        }
+      });
+    });
+
+    // Índice
+    const closeMenu = () => { index.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); };
+    menuBtn.addEventListener('click', () => {
+      const open = index.hidden;
+      index.hidden = !open;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      if (open) { const first = index.querySelector('a'); first && first.focus(); }
+    });
+    document.addEventListener('click', (e) => {
+      if (!index.hidden && !index.contains(e.target) && e.target !== menuBtn) closeMenu();
+    });
+
+    // Links internos
+    $$('a[data-nav]').forEach((a) => a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || href[0] !== '#') return;
+      e.preventDefault();
+      closeMenu();
+      M.goTo(href);
+    }));
+
+    // Atalhos de teclado para o apresentador
+    const keys = { '1': '#ato-1', '2': '#ato-2', '3': '#ato-3', 'r': '#referencias', 'R': '#referencias' };
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (/input|textarea|select/i.test(document.activeElement.tagName)) return;
+      if (e.key === 'Escape') { closeMenu(); menuBtn.focus(); return; }
+      if (keys[e.key]) { e.preventDefault(); M.goTo(keys[e.key]); }
+      if (e.key === 'Home') { e.preventDefault(); M.goTo('#inicio'); }
+    });
+  };
+})(window.MKT);
+
+/* ===== js/scenes/act1.js ===== */
+/* =========================================================
+   CENAS — Abertura e Ato I (Entendendo o jogo)
+   Cada cena: função que cria as animações e devolve uma
+   limpeza (chamada quando o layout muda de desktop → mobile).
+   ========================================================= */
+(function (M) {
+  const { $, $$, pinned } = M;
+  const S = M.scenes;
+
+  /* CENA 01 — Título gigante encolhe; fotografia abre por máscara */
+  S.hero = () => {
+    const hero = $('.hero');
+    hero.classList.add('is-live');
+    const title = $('.hero__title', hero);
+    const media = $('.hero__media', hero);
+    const img = $('img', media);
+    const acts = $$('.hero__acts li', hero);
+    gsap.set([title, media], { xPercent: -50, yPercent: -50 });
+
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(hero, 1.6) });
+    tl.to('.hero__hint', { opacity: 0, duration: 0.15 }, 0)
+      .fromTo(title, { scale: 1 }, { scale: 0.36, y: () => -window.innerHeight * 0.3, ease: 'power2.inOut', duration: 1 }, 0)
+      .fromTo(media, { clipPath: 'inset(49% 49% 49% 49%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', duration: 1 }, 0.12)
+      .fromTo(img, { scale: 1.45 }, { scale: 1, duration: 1.2, ease: 'power1.out' }, 0.12)
+      .fromTo(acts, { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.35 }, 0.95)
+      .to({}, { duration: 0.25 });
+    return () => hero.classList.remove('is-live');
+  };
+
+  /* Abertura de ato genérica (Insert 09) */
+  S.opener = (section) => {
+    const words = $$('.mask > span', section);
+    // Entrada começa antes do pin, para não haver tela vazia entre cenas
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: section, start: 'top 70%', end: 'top top', scrub: M.config.scrub } })
+      .fromTo($('.opener__label', section), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, 0)
+      .fromTo(words, { yPercent: 110 }, { yPercent: 0, stagger: 0.2, duration: 0.7, ease: 'power3.out' }, 0.1);
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(section, 0.8) })
+      .fromTo($('.opener__rule', section), { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: 'power2.inOut' }, 0)
+      .to($('.opener__title', section), { letterSpacing: '-0.035em', duration: 0.6 }, 0)
+      .to({}, { duration: 0.3 });
+  };
+
+  /* CENA 02b — Palavras-chave acendem em sequência */
+  S.why = () => {
+    const sec = $('.why');
+    const words = $$('.why__words li', sec);
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 1.5) });
+    tl.fromTo($('.eyebrow', sec), { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0)
+      .fromTo(words, { opacity: 0.07, y: 30 }, { opacity: 1, y: 0, stagger: 0.14, duration: 0.3, ease: 'power2.out' }, 0.05)
+      .fromTo($('.why__text', sec), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4 }, '>-0.1')
+      .to({}, { duration: 0.4 });
+  };
+
+  /* CENA 03a — Período 2001 → 2021 */
+  S.period = () => {
+    const sec = $('.period');
+    const b = $('.period__y--b', sec);
+    const yr = { v: 2001 };
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 1.1) });
+    tl.fromTo($('.eyebrow', sec), { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0)
+      .fromTo('.period__y--a', { x: () => window.innerWidth * 0.12, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.05)
+      .fromTo('.period__line', { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: 'power1.inOut' }, 0.35)
+      .fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, 0.35)
+      .fromTo(yr, { v: 2001 }, { v: 2021, duration: 0.8, ease: 'power1.inOut', onUpdate: () => { b.textContent = Math.round(yr.v); } }, 0.35)
+      .fromTo('.period__caption', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, 1.0)
+      .to({}, { duration: 0.3 });
+    return () => { b.textContent = '2021'; };
+  };
+
+  /* CENA 03b — Gráficos em trilho horizontal, revelados por etapas */
+  S.charts = () => {
+    const sec = $('.charts');
+    sec.classList.add('is-h');
+    const track = $('.charts__track', sec);
+    const [growth, evo, map, cloud] = $$('.chart', sec);
+    const steps = [];          // [{li, time}]
+    const W = () => window.innerWidth;
+
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: pinned(sec, 6.5, {
+        onUpdate: () => { const t = tl.time(); steps.forEach((s) => s.li.classList.toggle('is-on', t >= s.time - 0.001)); }
+      })
+    });
+
+    // 01 · Crescimento das fontes — linhas surgem da esquerda para a direita (eixo do tempo)
+    tl.fromTo($('.chart__img', growth), { clipPath: 'inset(0% 89% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power1.inOut' })
+      .to({}, { duration: 0.3 })
+      .to(track, { x: () => -W(), duration: 1, ease: 'power2.inOut' });
+
+    // 02 · Evolução temática — um período por vez
+    const evoImg = $('.chart__img', evo);
+    const evoSteps = $$('.chart__steps li', evo);
+    tl.fromTo(evoImg, { clipPath: 'inset(0% 76% 0% 0%)' }, { clipPath: 'inset(0% 76% 0% 0%)', duration: 0.01 }, '-=0.6');
+    steps.push({ li: evoSteps[0], time: tl.duration() });
+    tl.to({}, { duration: 0.3 })
+      .to(evoImg, { clipPath: 'inset(0% 40% 0% 0%)', duration: 0.6, ease: 'power1.inOut' });
+    steps.push({ li: evoSteps[1], time: tl.duration() });
+    tl.to(evoImg, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6, ease: 'power1.inOut' }, '+=0.25');
+    steps.push({ li: evoSteps[2], time: tl.duration() });
+    tl.to({}, { duration: 0.3 })
+      .to(track, { x: () => -W() * 2, duration: 1, ease: 'power2.inOut' });
+
+    // 03 · Mapa temático — quadrantes revelados
+    const qs = ['.q--tr', '.q--br', '.q--tl', '.q--bl'].map((q) => $(q, map));
+    const mapSteps = $$('.chart__steps li', map);
+    gsap.set(qs, { opacity: 1 });
+    qs.forEach((q, i) => {
+      tl.to(q, { opacity: 0, duration: 0.4 }, i === 0 ? '+=0.1' : '+=0.15');
+      steps.push({ li: mapSteps[i], time: tl.duration() });
+    });
+    tl.to({}, { duration: 0.3 })
+      .to(track, { x: () => -W() * 3, duration: 1, ease: 'power2.inOut' });
+
+    // 04 · Nuvem de palavras — abertura radial a partir do centro
+    tl.fromTo($('.chart__img', cloud), { clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: 1.1, ease: 'power2.out' })
+      .to({}, { duration: 0.4 });
+
+    return () => { sec.classList.remove('is-h'); steps.forEach((s) => s.li.classList.remove('is-on')); };
+  };
+
+  /* CENA 04 — Composto de comunicação → três formas de atuação */
+  S.how = () => {
+    const sec = $('.how');
+    sec.classList.add('is-stacked');
+    const [p1, p2] = $$('.how__panel', sec);
+    const mix = $$('.how__mix span', sec);
+    const forms = $$('.how__forms li', sec);
+    const dots = document.createElement('p');
+    dots.className = 'how__dots';
+    dots.setAttribute('aria-hidden', 'true');
+    dots.innerHTML = '<i></i><i></i><i></i>';
+    $('.how__panels', sec).appendChild(dots);
+    const dotEls = $$('i', dots);
+    const setDot = (n) => dotEls.forEach((d, i) => d.classList.toggle('is-on', i === n));
+
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: pinned(sec, 2.6, {
+        onUpdate: () => {
+          const t = tl.time();
+          setDot(t < tl.labels.f2 ? (t >= tl.labels.f1 ? 0 : -1) : t < tl.labels.f3 ? 1 : 2);
+        }
+      })
+    });
+    tl.fromTo(mix, { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.2, duration: 0.3 }, 0.05)
+      .to({}, { duration: 0.4 })
+      .to(p1, { opacity: 0, y: -40, duration: 0.35 })
+      .addLabel('f1')
+      .fromTo(p2, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.35 }, '<0.1')
+      .fromTo(forms[0], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.35 }, '<')
+      .set(forms.slice(1), { opacity: 0 }, 0)
+      .to({}, { duration: 0.5 })
+      .to(forms[0], { opacity: 0, y: -40, duration: 0.25 })
+      .addLabel('f2')
+      .fromTo(forms[1], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3 })
+      .to({}, { duration: 0.5 })
+      .to(forms[1], { opacity: 0, y: -40, duration: 0.25 })
+      .addLabel('f3')
+      .fromTo(forms[2], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3 })
+      .to({}, { duration: 0.5 });
+
+    return () => { sec.classList.remove('is-stacked'); dots.remove(); };
+  };
+})(window.MKT);
+
+/* ===== js/scenes/act2.js ===== */
+/* =========================================================
+   CENAS — Ato II (Vitórias e derrotas)
+   ========================================================= */
+(function (M) {
+  const { $, $$, pinned, offsetWithin } = M;
+  const S = M.scenes;
+  const vw = () => window.innerWidth;
+  const vh = () => window.innerHeight;
+
+  /* CENA 05 — Quatro campanhas se espalham; a Nike cresce até ocupar a tela */
+  S.casesOpen = () => {
+    const sec = $('.cases-open');
+    sec.classList.add('is-live');
+    const stage = $('.cases-open__stage', sec);
+    const nike = $('.cases-open__nike', sec);
+    const slot = $('.cases-open__slot', sec);
+    const tiles = $$('.cases-open__tile', sec);
+    const words = $$('.opener__title .mask > span', sec);
+    gsap.set(nike, { xPercent: -50, yPercent: -50 });
+
+    // Posição/escala da peça Nike quando ela ainda é uma "miniatura"
+    const thumb = () => {
+      const s = offsetWithin(slot, stage);
+      return {
+        x: s.x + s.w / 2 - stage.offsetWidth / 2,
+        y: s.y + s.h / 2 - stage.offsetHeight / 2,
+        scale: s.w / nike.offsetWidth
+      };
+    };
+    const drift = [[-0.14, -0.12], [-0.16, 0.14], [0.14, 0.16]]; // reebok, redbull, adidas
+
+    // Entrada (antes do pin): título e miniaturas chegam enquanto a seção sobe
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top 75%', end: 'top top', scrub: M.config.scrub, invalidateOnRefresh: true } })
+      .fromTo($('.opener__label', sec), { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0)
+      .fromTo(words, { yPercent: 110 }, { yPercent: 0, stagger: 0.15, duration: 0.5, ease: 'power3.out' }, 0.1)
+      .fromTo(tiles, { opacity: 0, y: 90, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, stagger: 0.12, duration: 0.6, ease: 'power2.out' }, 0)
+      .fromTo(nike, { opacity: 0, x: () => thumb().x, y: () => thumb().y + 90, scale: () => thumb().scale },
+                    { opacity: 1, y: () => thumb().y, duration: 0.6, ease: 'power2.out' }, 0.25);
+
+    // Cena fixa: as campanhas se afastam, a Nike ocupa a tela e depois recua para a leitura
+    const intro = $('.nike__intro');
+    intro.classList.add('is-merged');
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 2.6) })
+      .to({}, { duration: 0.3 })
+      .addLabel('out')
+      .to($('.cases-open__head', sec), { opacity: 0, y: -60, duration: 0.5 }, 'out')
+      .to(tiles, { x: (i) => vw() * drift[i][0], y: (i) => vh() * drift[i][1], scale: 0.8, opacity: 0, duration: 0.8, ease: 'power2.in' }, 'out')
+      .fromTo(nike, { x: () => thumb().x, y: () => thumb().y, scale: () => thumb().scale }, { x: 0, y: 0, scale: 1, duration: 1.1, ease: 'power2.inOut', immediateRender: false }, 'out+=0.2')
+      .to({}, { duration: 0.45 })
+      .to(nike, { scale: () => (vw() * 0.6) / nike.offsetWidth, y: () => -vh() * 0.07, duration: 1, ease: 'power2.inOut' })
+      .fromTo($('.cases-open__caption', sec), { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45 }, '-=0.45')
+      .to({}, { duration: 0.3 });
+
+    return () => { sec.classList.remove('is-live'); intro.classList.remove('is-merged'); };
+  };
+
+  /* (Mantida para referência: versão independente da abertura Nike) */
+  S.nike = () => {
+    const intro = $('.nike__intro');
+    intro.classList.add('is-live');
+    const frame = $('.nike__frame', intro);
+    gsap.set(frame, { xPercent: -50, yPercent: -50 });
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(intro, 1.3) });
+    tl.to({}, { duration: 0.15 })
+      .fromTo(frame, { scale: 1, y: 0 }, { scale: () => (vw() * 0.6) / frame.offsetWidth, y: () => -vh() * 0.07, duration: 1, ease: 'power2.inOut' })
+      .fromTo($('.nike__caption', intro), { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45 }, '-=0.45')
+      .to({}, { duration: 0.3 });
+    return () => intro.classList.remove('is-live');
+  };
+
+  /* CENA 07 — Altitude: a câmera recua da cápsula; números revelados */
+  S.redbull = () => {
+    const scene = $('.rb__scene');
+    scene.classList.add('is-live');
+    const frame = $('.rb__frame', scene);
+    const img = $('img', frame);
+    const num = $('.rb__alt-num', scene);
+    const km = { v: 0 };
+    const setKm = () => { num.firstChild.nodeValue = Math.round(km.v); };
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(scene, 1.9) });
+    tl.fromTo(img, { scale: 1.5, yPercent: -9, transformOrigin: '60% 30%' }, { scale: 1.08, yPercent: 0, duration: 1.3, ease: 'power1.inOut' }, 0)
+      .fromTo('.rb__alt', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.35 }, 0.25)
+      .fromTo(km, { v: 0 }, { v: 39, duration: 0.7, ease: 'power2.out', onUpdate: setKm }, 0.25)
+      .addLabel('frame', 1.15)
+      .fromTo(frame, { clipPath: 'inset(0px 0px 0px 0px)' },
+        { clipPath: () => { const m = $('.rb__caption', scene).offsetLeft; return `inset(${vh() * 0.11}px ${m}px ${vh() * 0.2}px ${m}px)`; }, duration: 0.8, ease: 'power2.inOut' }, 'frame')
+      .to(img, { scale: 1, duration: 0.8 }, 'frame')
+      .fromTo('.rb__caption', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4 }, 'frame+=0.45')
+      .to({}, { duration: 0.25 });
+    return () => { scene.classList.remove('is-live'); km.v = 39; setKm(); };
+  };
+
+  /* Divisor narrativo — vitórias → derrotas */
+  S.turn = () => {
+    const sec = $('.turn');
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top 85%', end: 'bottom 55%', scrub: M.config.scrub } })
+      .fromTo('.turn__a', { x: () => -vw() * 0.06, opacity: 0 }, { x: 0, opacity: 1, duration: 1 }, 0)
+      .fromTo('.turn__b', { x: () => vw() * 0.08, opacity: 0 }, { x: 0, opacity: 1, duration: 1 }, 0.2)
+      .fromTo('.turn__rule', { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0.4);
+  };
+
+  /* CENA 08 — O e-mail primeiro; depois a frase em evidência */
+  S.adidas = () => {
+    const scene = $('.ad__scene');
+    scene.classList.add('is-live');
+    const email = $('.ad__email', scene);
+    const center = () => { const o = offsetWithin(email, scene); return scene.offsetWidth / 2 - (o.x + o.w / 2); };
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(scene, 1.7) });
+    tl.fromTo('.ad__head', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3 }, 0)
+      .fromTo(email, { x: center, scale: 1.12, opacity: 0 }, { opacity: 1, duration: 0.3 }, 0)
+      .to({}, { duration: 0.35 })
+      .to(email, { x: 0, scale: 1, duration: 0.8, ease: 'power2.inOut' })
+      .fromTo('.ad__phrase', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.35')
+      .fromTo('.ad__under', { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.inOut' })
+      .fromTo('.ad__translation', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, '-=0.15')
+      .to({}, { duration: 0.35 });
+    return () => scene.classList.remove('is-live');
+  };
+
+  /* CENA 09 — Anúncio revelado por máscara horizontal; slogan em linhas */
+  S.reebok = () => {
+    const ad = $('.rk__ad');
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: ad, start: 'top 88%', end: 'center 50%', scrub: M.config.scrub } })
+      .fromTo(ad, { clipPath: 'inset(0% 50% 0% 50%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power2.out' }, 0)
+      .fromTo($('img', ad), { scale: 1.25 }, { scale: 1, duration: 1.2 }, 0);
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.rk__slogan', start: 'top 90%', end: 'top 55%', scrub: M.config.scrub } })
+      .fromTo('.rk__l', { opacity: 0, yPercent: 60 }, { opacity: 1, yPercent: 0, stagger: 0.3, duration: 0.7 })
+      .fromTo('.rk__pt', { opacity: 0 }, { opacity: 1, duration: 0.4 }, '-=0.2');
+  };
+
+  /* CENA 10 — Sucessos, depois fracassos, depois a comparação */
+  S.compare = () => {
+    const sec = $('.compare');
+    const win = $('.compare__col--win', sec);
+    const loss = $('.compare__col--loss', sec);
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 2) });
+    gsap.fromTo('.compare__head', { opacity: 0, y: 40 }, { opacity: 1, y: 0, ease: 'none', scrollTrigger: { trigger: sec, start: 'top 75%', end: 'top 15%', scrub: M.config.scrub } });
+    tl.fromTo($('.compare__colh', win), { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3 }, 0)
+      .fromTo($$('.compare__row', win), { opacity: 0, x: -50 }, { opacity: 1, x: 0, stagger: 0.25, duration: 0.45, ease: 'power2.out' }, 0.1)
+      .to({}, { duration: 0.3 })
+      .fromTo($('.compare__colh', loss), { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.3 })
+      .fromTo($$('.compare__row', loss), { opacity: 0, x: 50 }, { opacity: 1, x: 0, stagger: 0.25, duration: 0.45, ease: 'power2.out' }, '<0.1')
+      .fromTo('.compare__divider', { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: 'power2.inOut' })
+      .to({}, { duration: 0.4 });
+  };
+
+  /* Contadores dos resultados (Nike 31%, Red Bull) — disparados ao entrar */
+  S.counters = () => {
+    $$('.count').forEach((el) => {
+      const tween = M.countTo(el, { paused: true });
+      ScrollTrigger.create({
+        trigger: el, start: 'top 85%',
+        onEnter: () => tween.restart(),
+        onLeaveBack: () => { tween.pause(0); }
+      });
+    });
+    return () => $$('.count').forEach((el) => { el.textContent = el.dataset.to; });
+  };
+})(window.MKT);
+
+/* ===== js/scenes/act3.js ===== */
+/* =========================================================
+   CENAS — Ato III (Nossa vez de jogar)
+   ========================================================= */
+(function (M) {
+  const { $, $$, pinned, offsetWithin } = M;
+  const S = M.scenes;
+  const vw = () => window.innerWidth;
+  const vh = () => window.innerHeight;
+  const scrub = () => M.config.scrub;
+
+  /* CENA 11 — O mosaico dos cases se dispersa; surge "Nossa vez de jogar" */
+  S.ourTurn = () => {
+    const sec = $('.our');
+    const tiles = $$('.our__tile', sec);
+    const dir = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
+    const words = $$('.our__title .mask > span', sec);
+    gsap.fromTo(tiles, { opacity: 0, scale: 0.9 }, {
+      opacity: 1, scale: 1, stagger: 0.08, ease: 'power2.out',
+      scrollTrigger: { trigger: sec, start: 'top 75%', end: 'top 10%', scrub: M.config.scrub }
+    });
+    gsap.set(words, { yPercent: 110 });
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 1.7) })
+      .to({}, { duration: 0.25 })
+      .addLabel('out')
+      .to(tiles, {
+        x: (i) => dir[i][0] * vw() * 0.36, y: (i) => dir[i][1] * vh() * 0.34,
+        scale: 0.4, opacity: 0, duration: 1, ease: 'power2.in', immediateRender: false
+      }, 'out')
+      .fromTo($('.opener__label', sec), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 'out+=0.55')
+      .to(words, { yPercent: 0, stagger: 0.18, duration: 0.6, ease: 'power3.out' }, 'out+=0.55')
+      .to({}, { duration: 0.35 });
+  };
+
+  /* CENA 12 — Colagem editorial com profundidades diferentes */
+  S.goldko = () => {
+    const figs = $$('.gk');
+    const speeds = [-10, -34, -18];
+    figs.forEach((fig, i) => {
+      gsap.fromTo(fig, { clipPath: 'inset(100% 0% 0% 0%)' }, {
+        clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.out',
+        scrollTrigger: { trigger: fig, start: 'top 95%', end: 'top 45%', scrub: scrub() }
+      });
+      gsap.fromTo($('img', fig), { scale: 1.3 }, {
+        scale: 1, ease: 'none',
+        scrollTrigger: { trigger: fig, start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+      gsap.fromTo(fig, { yPercent: 0 }, {
+        yPercent: speeds[i], ease: 'none',
+        scrollTrigger: { trigger: '.goldko__collage', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+  };
+
+  /* CENA 13 — Três fotografias convergem; a palavra HYROX atravessa a cena */
+  S.hyrox = () => {
+    const sec = $('.hyrox__scene');
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 1.7) });
+    tl.fromTo('.hyrox__word', { x: () => vw() * 0.25 }, { x: () => -vw() * 0.75, duration: 2.2 }, 0)
+      .fromTo('.hyrox__head', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3 }, 0)
+      .fromTo('.hx--a', { y: () => vh() * 0.7, x: () => -vw() * 0.04, opacity: 0 }, { y: 0, x: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }, 0.1)
+      .fromTo('.hx--b', { y: () => -vh() * 0.6, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }, 0.35)
+      .fromTo('.hx--c', { x: () => vw() * 0.35, opacity: 0, scale: 1.15 }, { x: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.6)
+      .fromTo('.hx img', { scale: 1.2 }, { scale: 1, duration: 1.6 }, 0.1)
+      .to('.hx--b', { scale: 1.06, duration: 0.6, ease: 'power1.inOut' }, 1.5);
+  };
+
+  /* CENA 14 — Revelação da campanha: máscara circular + conceito */
+  S.campaign = () => {
+    const sec = $('.camp');
+    sec.classList.add('is-live');
+    const more = $('.camp__more', sec);
+    const words = $$('.camp__title .mask > span', sec);
+    gsap.set(more, { yPercent: -50, top: '50%' });
+    // Entrada: a fotografia abre por máscara enquanto a seção sobe
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top 80%', end: 'top top', scrub: M.config.scrub } })
+      .fromTo('.camp__media', { clipPath: 'circle(0% at 50% 42%)' }, { clipPath: 'circle(80% at 50% 42%)', duration: 1, ease: 'power2.out' }, 0)
+      .fromTo('.camp__media img', { scale: 1.3 }, { scale: 1.06, duration: 1 }, 0)
+      .fromTo('.camp .eyebrow', { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.2)
+      .fromTo(words, { yPercent: 110 }, { yPercent: 0, stagger: 0.18, duration: 0.55, ease: 'power3.out' }, 0.3);
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 1.7) });
+    tl.fromTo('.camp__sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, 0)
+      .fromTo('.camp__note', { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.1)
+      .to('.camp__media img', { scale: 1, duration: 0.6 }, 0)
+      .to({}, { duration: 0.45 })
+      .addLabel('concept')
+      .to(['.camp__title', '.camp__sub'], { opacity: 0, y: -50, stagger: 0.05, duration: 0.45 }, 'concept')
+      .fromTo(more, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 'concept+=0.25')
+      .fromTo($$('.camp__more > *', sec), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.18, duration: 0.4 }, 'concept+=0.3')
+      .to({}, { duration: 0.5 });
+    return () => { sec.classList.remove('is-live'); gsap.set(more, { clearProps: 'all' }); };
+  };
+
+  /* CENA 15 — Celular central; as demais telas entram pelas laterais */
+  S.app = () => {
+    const sec = $('.app');
+    const row = $('.app__row', sec);
+    const main = $('.app__ph--main', sec);
+    const others = $$('.app__ph:not(.app__ph--main)', sec);
+    const toCenter = (el) => { const o = offsetWithin(el, row); return row.offsetWidth / 2 - (o.x + o.w / 2); };
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 1.9) });
+    tl.fromTo(main, { x: () => toCenter(main), scale: 1.16 }, { scale: 1.12, duration: 0.3 }, 0)
+      .to({}, { duration: 0.3 })
+      .addLabel('spread')
+      .to(main, { x: 0, scale: 1, duration: 0.9, ease: 'power2.inOut' }, 'spread')
+      .fromTo(others, {
+        x: (i, el) => toCenter(el) * 0.55, scale: 0.82, opacity: 0
+      }, {
+        x: 0, scale: 1, opacity: 1, duration: 0.9, ease: 'power2.out',
+        stagger: { each: 0.1, from: 'center' }
+      }, 'spread+=0.15')
+      .to(main, { scale: 1.05, duration: 0.4, ease: 'power1.inOut' })
+      .to(main, { scale: 1, duration: 0.4, ease: 'power1.inOut' })
+      .to({}, { duration: 0.2 });
+  };
+
+  /* CENA 16 — Uma peça central; o kit se monta ao redor */
+  S.kit = () => {
+    const sec = $('.kit');
+    const row = $('.kit__row', sec);
+    const hero = $('.kit__item--top', sec);
+    const rest = $$('.kit__item:not(.kit__item--top)', sec);
+    const toCenter = (el) => { const o = offsetWithin(el, row); return row.offsetWidth / 2 - (o.x + o.w / 2); };
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 1.8) });
+    tl.fromTo(hero, { x: () => toCenter(hero), y: () => -vh() * 0.04, scale: 1.55 }, { scale: 1.45, duration: 0.3 }, 0)
+      .fromTo('.kit__item figcaption', { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0)
+      .to({}, { duration: 0.3 })
+      .addLabel('build')
+      .to(hero, { x: 0, y: 0, scale: 1, duration: 0.8, ease: 'power2.inOut' }, 'build')
+      .fromTo(rest, { y: () => vh() * 0.25, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, stagger: 0.15, duration: 0.6, ease: 'power2.out' }, 'build+=0.2')
+      .to('.kit__item figcaption', { opacity: 1, stagger: 0.06, duration: 0.3 })
+      .to('.kit__item--tee', { scale: 1.08, duration: 0.35, ease: 'power1.inOut' })
+      .to('.kit__item--tee', { scale: 1, duration: 0.35, ease: 'power1.inOut' })
+      .to({}, { duration: 0.2 });
+  };
+
+  /* CENA 17 — Sequência editorial azul: imagens entram uma a uma */
+  S.blue = () => {
+    const figs = $$('.bl');
+    const drift = [-6, -16, -10];
+    figs.forEach((fig, i) => {
+      gsap.fromTo(fig, { clipPath: 'inset(100% 0% 0% 0%)' }, {
+        clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.out',
+        scrollTrigger: { trigger: fig, start: 'top 92%', end: 'top 40%', scrub: scrub() }
+      });
+      gsap.fromTo($('img', fig), { scale: 1.3 }, {
+        scale: 1, ease: 'none',
+        scrollTrigger: { trigger: fig, start: 'top bottom', end: 'bottom 30%', scrub: true }
+      });
+      gsap.fromTo(fig, { yPercent: 0 }, {
+        yPercent: drift[i], ease: 'none',
+        scrollTrigger: { trigger: '.blue__grid', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+    gsap.fromTo('.blue__line', { scaleX: 0 }, {
+      scaleX: 1, ease: 'none',
+      scrollTrigger: { trigger: '.blue__grid', start: 'top 70%', end: 'bottom 60%', scrub: scrub() }
+    });
+  };
+
+  /* CENA 18 — Ensaio fotográfico: fotos empilham e se reorganizam */
+  S.event = () => {
+    const sec = $('.event');
+    sec.classList.add('is-live');
+    const stage = $('.event__stage', sec);
+    const evs = $$('.ev', sec);
+    const n = evs.length;
+    const mid = (n - 1) / 2;
+    const toStack = (el, i) => {
+      const o = offsetWithin(el, stage);
+      return {
+        x: stage.offsetWidth / 2 - (o.x + o.w / 2) + (i - mid) * vw() * 0.022,
+        y: stage.offsetHeight * 0.56 - (o.y + o.h / 2) + (i % 2 ? -1 : 1) * vh() * 0.015
+      };
+    };
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: pinned(sec, 2.6) });
+    tl.to({}, { duration: 0.01 }, 0);
+    evs.forEach((el, i) => {
+      tl.fromTo(el,
+        { x: () => toStack(el, i).x, y: () => toStack(el, i).y + vh(), rotation: (i - mid) * 3, scale: 1.4, opacity: 1 },
+        { y: () => toStack(el, i).y, duration: 0.45, ease: 'power3.out' },
+        i * 0.28);
+    });
+    tl.to({}, { duration: 0.35 })
+      .addLabel('grid')
+      .to(evs, { x: 0, y: 0, rotation: 0, scale: 1, duration: 0.9, ease: 'power2.inOut', stagger: { each: 0.05, from: 'center' } }, 'grid')
+      .fromTo('.event__quote', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, 'grid+=0.6')
+      .to({}, { duration: 0.35 });
+    return () => sec.classList.remove('is-live');
+  };
+})(window.MKT);
+
+/* ===== js/main.js ===== */
+/* =========================================================
+   MAIN — inicializa navegação e cenas conforme o dispositivo
+   ========================================================= */
+(function (M) {
+  const { $, $$ } = M;
+  if (!window.gsap || !window.ScrollTrigger) {
+    document.documentElement.classList.add('no-motion');
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  /* Revelações de texto (tempo, não scrub — leitura confortável e reversível) */
+  const reveals = () => {
+    $$('[data-split]').forEach((el) => {
+      const words = M.splitWords(el);
+      gsap.fromTo(words, { yPercent: 105 }, {
+        yPercent: 0, duration: 1, ease: 'power3.out', stagger: 0.04,
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
+      });
+    });
+    $$('[data-reveal]').forEach((el) => {
+      gsap.fromTo(el, { opacity: 0, y: 36 }, {
+        opacity: 1, y: 0, duration: M.config.revealDuration, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none reverse' }
+      });
+    });
+    $$('.mask-reveal').forEach((el) => {
+      gsap.fromTo(el, { clipPath: 'inset(100% 0% 0% 0%)' }, {
+        clipPath: 'inset(0% 0% 0% 0%)', ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top 90%', end: 'top 45%', scrub: M.config.scrub }
+      });
+    });
+  };
+
+  const run = (fn, arg) => { try { return fn(arg); } catch (err) { console.warn('[cena]', err); } };
+
+  const mm = gsap.matchMedia();
+  mm.add({
+    desktop: M.config.desktopQuery + ' and (prefers-reduced-motion: no-preference)',
+    mobile: '(max-width: 899px) and (prefers-reduced-motion: no-preference)',
+    reduce: '(prefers-reduced-motion: reduce)'
+  }, (ctx) => {
+    const { desktop, reduce } = ctx.conditions;
+    document.documentElement.classList.toggle('no-motion', !!reduce);
+    if (reduce) return;
+
+    const cleanups = [];
+    if (desktop) {
+      const S = M.scenes;
+      // Ordem = ordem do documento (necessário para os pins calcularem corretamente)
+      cleanups.push(
+        run(S.hero),
+        run(S.opener, $('#ato-1')),
+        run(S.why), run(S.period), run(S.charts), run(S.how),
+        run(S.casesOpen), run(S.redbull), run(S.turn),
+        run(S.adidas), run(S.reebok), run(S.compare),
+        run(S.ourTurn), run(S.goldko), run(S.hyrox), run(S.campaign),
+        run(S.app), run(S.kit), run(S.blue), run(S.event)
+      );
+    }
+    reveals();
+    cleanups.push(run(M.scenes.counters));
+    return () => cleanups.forEach((fn) => typeof fn === 'function' && fn());
+  });
+
+  // Navegação criada depois das cenas (os pins precisam existir antes)
+  M.initNav();
+
+  // Recalcula após todas as imagens carregarem
+  const afterLoad = () => {
+    ScrollTrigger.refresh();
+    if (location.hash) { const t = document.querySelector(location.hash); t && setTimeout(() => M.goTo(t), 50); }
+  };
+  if (document.readyState === 'complete') afterLoad();
+  else window.addEventListener('load', afterLoad);
+})(window.MKT);
+
+};
+window.__loadGSAP();
+</script>
+</body>
+</html>
